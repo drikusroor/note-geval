@@ -23,6 +23,7 @@ tests/
 : Follow standard conventions
 
 ## Recent Changes
+- 003-sidebar-sort-filter: Added [if applicable, e.g., PostgreSQL, CoreData, files or N/A]
 - 002-nested-directory-support: Added [if applicable, e.g., PostgreSQL, CoreData, files or N/A]
 
 - 001-nas-note-editor: Added

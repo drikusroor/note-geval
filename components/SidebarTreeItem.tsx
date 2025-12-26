@@ -36,7 +36,7 @@ export default function SidebarTreeItem({
     return (
       <Link
         href={`/notes/${node.path}`}
-        className={`flex items-center gap-2 px-3 py-1.5 text-sm rounded-md transition-colors ${
+        className={`flex items-center gap-2 px-3 py-1.5 text-sm rounded-md transition-colors animate-in fade-in duration-200 ${
           isActive
             ? "bg-primary text-primary-foreground font-medium"
             : "hover:bg-accent text-muted-foreground hover:text-foreground"
@@ -52,7 +52,7 @@ export default function SidebarTreeItem({
   return (
     <Collapsible.Root open={isOpen} onOpenChange={toggleOpen}>
       <Collapsible.Trigger
-        className={`w-full flex items-center gap-2 px-3 py-1.5 text-sm rounded-md hover:bg-accent transition-colors text-muted-foreground hover:text-foreground group`}
+        className={`w-full flex items-center gap-2 px-3 py-1.5 text-sm rounded-md hover:bg-accent transition-colors animate-in fade-in duration-200 text-muted-foreground hover:text-foreground group`}
         style={{ paddingLeft: `${(level + 1) * 12}px` }}
       >
         <div className="shrink-0">

@@ -4,6 +4,8 @@ export interface TreeNode {
   isDirectory: boolean;
   children?: TreeNode[];
   lastModified?: Date;
+  createdAt?: Date;
+  size: number;
 }
 
 export function buildTree(files: any[]): TreeNode[] {
@@ -21,6 +23,8 @@ export function buildTree(files: any[]): TreeNode[] {
       path: file.path,
       isDirectory: file.isDirectory,
       lastModified: file.lastModified ? new Date(file.lastModified) : undefined,
+      createdAt: file.createdAt ? new Date(file.createdAt) : undefined,
+      size: file.size || 0,
       children: file.isDirectory ? [] : undefined,
     };
 
@@ -72,4 +76,78 @@ export function buildTree(files: any[]): TreeNode[] {
   };
 
   return filterEmptyDirs(root);
+}
+
+export type SortAttribute = "name" | "createdAt" | "modifiedAt" | "size";
+export type SortDirection = "asc" | "desc";
+
+export interface SortCriteria {
+  attribute: SortAttribute;
+  direction: SortDirection;
+}
+
+export function sortTree(
+  nodes: TreeNode[],
+  criteria: SortCriteria,
+): TreeNode[] {
+  const sorted = [...nodes].sort((a, b) => {
+    // Folders always first
+    if (a.isDirectory && !b.isDirectory) return -1;
+    if (!a.isDirectory && b.isDirectory) return 1;
+
+    let comparison = 0;
+    const { attribute, direction } = criteria;
+
+    switch (attribute) {
+      case "name":
+        comparison = a.name.localeCompare(b.name);
+        break;
+      case "createdAt":
+        comparison =
+          (a.createdAt?.getTime() || 0) - (b.createdAt?.getTime() || 0);
+        break;
+      case "modifiedAt":
+        comparison =
+          (a.lastModified?.getTime() || 0) - (b.lastModified?.getTime() || 0);
+        break;
+      case "size":
+        comparison = a.size - b.size;
+        break;
+    }
+
+    return direction === "asc" ? comparison : -comparison;
+  });
+
+  for (const node of sorted) {
+    if (node.children) {
+      node.children = sortTree(node.children, criteria);
+    }
+  }
+
+  return sorted;
+}
+
+export function filterTree(nodes: TreeNode[], query: string): TreeNode[] {
+  if (!query) return nodes;
+
+  const lowercaseQuery = query.toLowerCase();
+  const results: TreeNode[] = [];
+
+  for (const node of nodes) {
+    const isMatch = node.name.toLowerCase().includes(lowercaseQuery);
+    const filteredChildren = node.children
+      ? filterTree(node.children, query)
+      : undefined;
+
+    const hasVisibleChildren = filteredChildren && filteredChildren.length > 0;
+
+    if (isMatch || hasVisibleChildren) {
+      results.push({
+        ...node,
+        children: filteredChildren,
+      });
+    }
+  }
+
+  return results;
 }

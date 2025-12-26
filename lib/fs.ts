@@ -9,6 +9,7 @@ export interface FileInfo {
   name: string;
   isDirectory: boolean;
   lastModified: Date;
+  createdAt: Date;
   size: number;
 }
 
@@ -27,6 +28,7 @@ export async function listFiles(relativeDir = ""): Promise<FileInfo[]> {
         name: entry.name,
         isDirectory: entry.isDirectory(),
         lastModified: stats.mtime,
+        createdAt: stats.birthtime,
         size: stats.size,
       };
     }),
@@ -51,6 +53,7 @@ export async function listAllRecursive(relativeDir = ""): Promise<FileInfo[]> {
       name: entry.name,
       isDirectory: entry.isDirectory(),
       lastModified: stats.mtime,
+      createdAt: stats.birthtime,
       size: stats.size,
     };
 
@@ -75,6 +78,7 @@ export async function readNote(relativePath: string) {
   return {
     content,
     lastModified: stats.mtime,
+    createdAt: stats.birthtime,
     size: stats.size,
   };
 }
@@ -119,6 +123,7 @@ export async function getAllNotesRecursively(
         name: entry.name,
         isDirectory: false,
         lastModified: stats.mtime,
+        createdAt: stats.birthtime,
         size: stats.size,
       });
     }
