@@ -8,11 +8,12 @@
    bun install
    ```
 3. **Configure Environment Variables**:
-   Create a `.env` file in the root:
+   Create a `.env` file in the root based on `.env.example`:
    ```env
    NOTES_AUTH_PASSWORD=your-secure-password
    NOTES_DIR=./example-notes
    JWT_SECRET=your-random-secret
+   PORT=3000
    ```
 4. **Prepare Example Notes**:
    ```bash
@@ -36,9 +37,11 @@ To run as a container (similar to how it will run on the NAS):
 ```bash
 docker build -t note-geval .
 docker run -p 3000:3000 \
-  -v /path/to/your/nas/notes:/app/notes \
+  -v /path/to/your/nas/notes:/notes \
   -e NOTES_AUTH_PASSWORD=your-password \
-  -e NOTES_DIR=/app/notes \
+  -e JWT_SECRET=your-secret \
+  -e NOTES_DIR=/notes \
+  -e PORT=3000 \
   note-geval
 ```
 

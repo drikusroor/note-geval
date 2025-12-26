@@ -25,6 +25,7 @@ ENV NEXT_TELEMETRY_DISABLED=1
 ENV NOTES_AUTH_PASSWORD=placeholder
 ENV NOTES_DIR=/notes
 ENV JWT_SECRET=placeholder_secret_long_enough
+ENV PORT=3000
 
 RUN bun run build
 
