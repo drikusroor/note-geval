@@ -1,0 +1,14 @@
+services:
+  note-geval:
+    build: .
+    container_name: note-geval
+    ports:
+      - "3000:3000"
+    environment:
+      - NOTES_AUTH_PASSWORD=${NOTES_AUTH_PASSWORD}
+      - JWT_SECRET=${JWT_SECRET}
+      - NOTES_DIR=/notes
+      - NODE_ENV=production
+    volumes:
+      - /path/to/your/nas/notes:/notes
+    restart: unless-stopped
