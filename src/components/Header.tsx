@@ -1,6 +1,6 @@
 import { Link } from '@tanstack/react-router'
 
-import WorkOSHeader from './workos-user.tsx'
+import ClerkHeader from '../integrations/clerk/header-user.tsx'
 
 import TanChatAIAssistant from './example-AIAssistant.tsx'
 
@@ -9,9 +9,9 @@ import {
   ChefHat,
   ChevronDown,
   ChevronRight,
-  CircleUserRound,
   ClipboardType,
   Database,
+  Globe,
   Home,
   ImageIcon,
   Menu,
@@ -21,6 +21,7 @@ import {
   StickyNote,
   Store,
   Table,
+  Webhook,
   X,
 } from 'lucide-react'
 
@@ -182,7 +183,7 @@ export default function Header() {
           )}
 
           <Link
-            to="/demo/workos"
+            to="/demo/clerk"
             onClick={() => setIsOpen(false)}
             className="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-800 transition-colors mb-2"
             activeProps={{
@@ -190,21 +191,8 @@ export default function Header() {
                 'flex items-center gap-3 p-3 rounded-lg bg-cyan-600 hover:bg-cyan-700 transition-colors mb-2',
             }}
           >
-            <CircleUserRound size={20} />
-            <span className="font-medium">WorkOS</span>
-          </Link>
-
-          <Link
-            to="/demo/neon"
-            onClick={() => setIsOpen(false)}
-            className="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-800 transition-colors mb-2"
-            activeProps={{
-              className:
-                'flex items-center gap-3 p-3 rounded-lg bg-cyan-600 hover:bg-cyan-700 transition-colors mb-2',
-            }}
-          >
-            <Database size={20} />
-            <span className="font-medium">Neon</span>
+            <Globe size={20} />
+            <span className="font-medium">Clerk</span>
           </Link>
 
           <Link
@@ -247,6 +235,45 @@ export default function Header() {
           </Link>
 
           <Link
+            to="/demo/db-chat"
+            onClick={() => setIsOpen(false)}
+            className="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-800 transition-colors mb-2"
+            activeProps={{
+              className:
+                'flex items-center gap-3 p-3 rounded-lg bg-cyan-600 hover:bg-cyan-700 transition-colors mb-2',
+            }}
+          >
+            <Database size={20} />
+            <span className="font-medium">DB Chat</span>
+          </Link>
+
+          <Link
+            to="/demo/mcp-todos"
+            onClick={() => setIsOpen(false)}
+            className="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-800 transition-colors mb-2"
+            activeProps={{
+              className:
+                'flex items-center gap-3 p-3 rounded-lg bg-cyan-600 hover:bg-cyan-700 transition-colors mb-2',
+            }}
+          >
+            <Webhook size={20} />
+            <span className="font-medium">MCP</span>
+          </Link>
+
+          <Link
+            to="/demo/orpc-todo"
+            onClick={() => setIsOpen(false)}
+            className="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-800 transition-colors mb-2"
+            activeProps={{
+              className:
+                'flex items-center gap-3 p-3 rounded-lg bg-cyan-600 hover:bg-cyan-700 transition-colors mb-2',
+            }}
+          >
+            <Network size={20} />
+            <span className="font-medium">oRPC Todo</span>
+          </Link>
+
+          <Link
             to="/demo/table"
             onClick={() => setIsOpen(false)}
             className="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-800 transition-colors mb-2"
@@ -260,19 +287,6 @@ export default function Header() {
           </Link>
 
           <Link
-            to="/demo/store"
-            onClick={() => setIsOpen(false)}
-            className="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-800 transition-colors mb-2"
-            activeProps={{
-              className:
-                'flex items-center gap-3 p-3 rounded-lg bg-cyan-600 hover:bg-cyan-700 transition-colors mb-2',
-            }}
-          >
-            <Store size={20} />
-            <span className="font-medium">Store</span>
-          </Link>
-
-          <Link
             to="/demo/trpc-todo"
             onClick={() => setIsOpen(false)}
             className="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-800 transition-colors mb-2"
@@ -283,6 +297,19 @@ export default function Header() {
           >
             <Network size={20} />
             <span className="font-medium">tRPC Todo</span>
+          </Link>
+
+          <Link
+            to="/demo/store"
+            onClick={() => setIsOpen(false)}
+            className="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-800 transition-colors mb-2"
+            activeProps={{
+              className:
+                'flex items-center gap-3 p-3 rounded-lg bg-cyan-600 hover:bg-cyan-700 transition-colors mb-2',
+            }}
+          >
+            <Store size={20} />
+            <span className="font-medium">Store</span>
           </Link>
 
           <Link
@@ -341,7 +368,7 @@ export default function Header() {
         </nav>
 
         <div className="p-4 border-t border-gray-700 bg-gray-800 flex flex-col gap-2">
-          <WorkOSHeader />
+          <ClerkHeader />
 
           <TanChatAIAssistant />
         </div>

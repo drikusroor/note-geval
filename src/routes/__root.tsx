@@ -8,7 +8,7 @@ import { TanStackDevtools } from '@tanstack/react-devtools'
 
 import Header from '../components/Header'
 
-import WorkOSProvider from '../integrations/workos/provider'
+import ClerkProvider from '../integrations/clerk/provider'
 
 import StoreDevtools from '../lib/demo-store-devtools'
 
@@ -61,7 +61,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
         <HeadContent />
       </head>
       <body>
-        <WorkOSProvider>
+        <ClerkProvider>
           <Header />
           {children}
           <TanStackDevtools
@@ -78,7 +78,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
               AiDevtools,
             ]}
           />
-        </WorkOSProvider>
+        </ClerkProvider>
         <Scripts />
       </body>
     </html>
