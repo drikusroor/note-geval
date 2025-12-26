@@ -45,6 +45,7 @@ export default function FileSearch() {
         <div className="flex items-center gap-2 p-4 border-b">
           <Search className="w-5 h-5 text-muted-foreground" />
           <input
+            autoFocus
             className="flex-1 bg-transparent border-none outline-none text-lg"
             placeholder="Search files..."
             value={query}
