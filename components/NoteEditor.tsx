@@ -14,7 +14,8 @@ interface NoteEditorProps {
 export default function NoteEditor({ path }: NoteEditorProps) {
   const queryClient = useQueryClient();
   const [content, setContent] = useState("");
-  const [view, setView] = useState<"edit" | "preview" | "split">("split");
+  // Default to edit view on mobile, split on desktop
+  const [view, setView] = useState<"edit" | "preview" | "split">("edit");
 
   const { data: note, isLoading } = useQuery({
     queryKey: ["note", path],
@@ -40,31 +41,54 @@ export default function NoteEditor({ path }: NoteEditorProps) {
     }
   }, [note]);
 
+  // Set default view based on screen size
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth >= 768 && view === "edit") {
+        setView("split");
+      }
+    };
+
+    // Set initial view
+    if (window.innerWidth >= 768) {
+      setView("split");
+    }
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, [view]);
+
   if (isLoading) return <div className="p-8">Loading note...</div>;
 
   return (
     <div className="flex flex-col h-full relative">
       <InternalSearch content={content} />
-      <div className="flex items-center justify-between p-2 border-b bg-muted/50">
-        <div className="flex items-center gap-2">
+      <div className="flex items-center justify-between p-3 md:p-2 border-b bg-muted/50 gap-2">
+        <div className="flex items-center gap-1 md:gap-2">
           <button
+            type="button"
             onClick={() => setView("edit")}
-            className={`p-2 rounded-md ${view === "edit" ? "bg-accent" : "hover:bg-accent/50"}`}
+            className={`p-3 md:p-2 rounded-md transition-colors ${view === "edit" ? "bg-accent" : "hover:bg-accent/50"}`}
             title="Edit"
+            aria-label="Edit mode"
           >
-            <Edit3 className="w-4 h-4" />
+            <Edit3 className="w-5 h-5 md:w-4 md:h-4" />
           </button>
           <button
+            type="button"
             onClick={() => setView("preview")}
-            className={`p-2 rounded-md ${view === "preview" ? "bg-accent" : "hover:bg-accent/50"}`}
+            className={`p-3 md:p-2 rounded-md transition-colors ${view === "preview" ? "bg-accent" : "hover:bg-accent/50"}`}
             title="Preview"
+            aria-label="Preview mode"
           >
-            <Eye className="w-4 h-4" />
+            <Eye className="w-5 h-5 md:w-4 md:h-4" />
           </button>
           <button
+            type="button"
             onClick={() => setView("split")}
-            className={`p-2 rounded-md ${view === "split" ? "bg-accent" : "hover:bg-accent/50"}`}
+            className={`p-3 md:p-2 rounded-md transition-colors hidden md:flex ${view === "split" ? "bg-accent" : "hover:bg-accent/50"}`}
             title="Split View"
+            aria-label="Split view mode"
           >
             <div className="flex gap-0.5">
               <div className="w-1.5 h-3 border-r" />
@@ -73,12 +97,16 @@ export default function NoteEditor({ path }: NoteEditorProps) {
           </button>
         </div>
         <button
+          type="button"
           onClick={() => mutation.mutate(content)}
           disabled={mutation.isPending || content === note?.content}
-          className="flex items-center gap-2 px-3 py-1.5 bg-primary text-primary-foreground rounded-md text-sm font-medium hover:bg-primary/90 disabled:opacity-50"
+          className="flex items-center gap-2 px-4 py-2 md:px-3 md:py-1.5 bg-primary text-primary-foreground rounded-md text-sm font-medium hover:bg-primary/90 disabled:opacity-50 transition-colors min-h-[44px] md:min-h-0"
+          aria-label="Save note"
         >
-          <Save className="w-4 h-4" />
-          {mutation.isPending ? "Saving..." : "Save"}
+          <Save className="w-5 h-5 md:w-4 md:h-4" />
+          <span className="hidden sm:inline">
+            {mutation.isPending ? "Saving..." : "Save"}
+          </span>
         </button>
       </div>
 
