@@ -1,10 +1,24 @@
 "use client";
 
 import { useQuery } from "@tanstack/react-query";
-import { buildTree } from "@/lib/utils/tree";
+import { useMemo } from "react";
+import {
+  buildTree,
+  filterTree,
+  type SortCriteria,
+  sortTree,
+} from "@/lib/utils/tree";
 import SidebarTreeItem from "./SidebarTreeItem";
 
-export default function SidebarTree() {
+interface SidebarTreeProps {
+  filterQuery: string;
+  sortCriteria: SortCriteria;
+}
+
+export default function SidebarTree({
+  filterQuery,
+  sortCriteria,
+}: SidebarTreeProps) {
   const {
     data: files,
     isLoading,
@@ -15,6 +29,15 @@ export default function SidebarTree() {
     refetchInterval: 30000,
   });
 
+  const tree = useMemo(() => {
+    if (!files) return [];
+    let processedTree = buildTree(files);
+    if (filterQuery) {
+      processedTree = filterTree(processedTree, filterQuery);
+    }
+    return sortTree(processedTree, sortCriteria);
+  }, [files, filterQuery, sortCriteria]);
+
   if (isLoading)
     return (
       <div className="p-4 text-sm text-muted-foreground">Loading notes...</div>
@@ -24,7 +47,15 @@ export default function SidebarTree() {
       <div className="p-4 text-sm text-destructive">Error loading notes</div>
     );
 
-  const tree = files ? buildTree(files) : [];
+  if (tree.length === 0 && filterQuery) {
+    return (
+      <div className="p-8 text-center">
+        <p className="text-sm text-muted-foreground italic">
+          No notes match your filter.
+        </p>
+      </div>
+    );
+  }
 
   return (
     <div className="py-2">
