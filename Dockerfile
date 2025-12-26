@@ -20,8 +20,11 @@ COPY . .
 
 # Set environment variables for build
 ENV NODE_ENV=production
-# Next.js telemetry disable
 ENV NEXT_TELEMETRY_DISABLED=1
+# Dummy values to satisfy Zod validation during build
+ENV NOTES_AUTH_PASSWORD=placeholder
+ENV NOTES_DIR=/notes
+ENV JWT_SECRET=placeholder_secret_long_enough
 
 RUN bun run build
 
