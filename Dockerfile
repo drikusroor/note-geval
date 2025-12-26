@@ -2,20 +2,14 @@
 FROM oven/bun:latest AS base
 WORKDIR /app
 
-# Install dependencies
-FROM base AS install
-RUN mkdir -p /temp/dev
-COPY package.json bun.lock /temp/dev/
-RUN cd /temp/dev && bun install --frozen-lockfile
+# Step 1: Install dependencies
+FROM base AS deps
+COPY package.json bun.lock ./
+RUN bun install --frozen-lockfile
 
-# Install with --production (exclude devDependencies)
-RUN mkdir -p /temp/prod
-COPY package.json bun.lock /temp/prod/
-RUN cd /temp/prod && bun install --frozen-lockfile --production
-
-# Build the application
-FROM base AS build
-COPY --from=install /temp/dev/node_modules node_modules
+# Step 2: Build the application
+FROM base AS builder
+COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
 # Set environment variables for build
@@ -32,23 +26,24 @@ RUN bun run build
 # Ensure public directory exists (might be empty)
 RUN mkdir -p public
 
-# Final image
-FROM base AS release
-COPY --from=install /temp/prod/node_modules node_modules
-COPY --from=build /app/.next .next
-COPY --from=build /app/public public
-COPY --from=build /app/package.json package.json
-COPY --from=build /app/next.config.mjs next.config.mjs
+# Step 3: Production image
+FROM base AS runner
+WORKDIR /app
 
-# Default environment variables
 ENV NODE_ENV=production
 ENV NEXT_TELEMETRY_DISABLED=1
 ENV PORT=3000
 ENV NOTES_DIR=/notes
 
-# Ensure notes directory exists for mapping
+# Create notes directory
 RUN mkdir -p /notes
+
+# Copy standalone build and static files
+COPY --from=builder /app/.next/standalone ./
+COPY --from=builder /app/.next/static ./.next/static
+COPY --from=builder /app/public ./public
 
 EXPOSE 3000
 
-CMD ["bun", "run", "start"]
+# Next.js standalone creates a server.js file
+CMD ["bun", "server.js"]
