@@ -92,7 +92,7 @@ export default function NoteEditor({ path }: NoteEditorProps) {
         )}
         {(view === "preview" || view === "split") && (
           <div className="flex-1 overflow-hidden">
-            <Preview content={content} />
+            <Preview content={content} path={path} />
           </div>
         )}
       </div>

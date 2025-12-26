@@ -5,18 +5,19 @@ import { markdownToHtml } from "@/lib/markdown";
 
 interface PreviewProps {
   content: string;
+  path: string;
 }
 
-export default function Preview({ content }: PreviewProps) {
+export default function Preview({ content, path }: PreviewProps) {
   const [html, setHtml] = useState("");
 
   useEffect(() => {
     async function transform() {
-      const result = await markdownToHtml(content);
+      const result = await markdownToHtml(content, path);
       setHtml(result);
     }
     transform();
-  }, [content]);
+  }, [content, path]);
 
   return (
     <div

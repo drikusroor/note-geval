@@ -35,6 +35,36 @@ export async function listFiles(relativeDir = ""): Promise<FileInfo[]> {
   return files;
 }
 
+export async function listAllRecursive(relativeDir = ""): Promise<FileInfo[]> {
+  const absoluteDir = path.join(NOTES_ROOT, relativeDir);
+  const entries = await fs.readdir(absoluteDir, { withFileTypes: true });
+
+  let results: FileInfo[] = [];
+
+  for (const entry of entries) {
+    const relativePath = path.join(relativeDir, entry.name);
+    const absolutePath = path.join(NOTES_ROOT, relativePath);
+    const stats = await fs.stat(absolutePath);
+
+    const info: FileInfo = {
+      path: relativePath,
+      name: entry.name,
+      isDirectory: entry.isDirectory(),
+      lastModified: stats.mtime,
+      size: stats.size,
+    };
+
+    results.push(info);
+
+    if (entry.isDirectory()) {
+      const children = await listAllRecursive(relativePath);
+      results = results.concat(children);
+    }
+  }
+
+  return results;
+}
+
 export async function readNote(relativePath: string) {
   const absolutePath = path.join(NOTES_ROOT, relativePath);
   if (!absolutePath.startsWith(NOTES_ROOT)) {

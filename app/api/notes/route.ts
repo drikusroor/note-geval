@@ -1,12 +1,15 @@
 import { type NextRequest, NextResponse } from "next/server";
-import { listFiles } from "@/lib/fs";
+import { listAllRecursive, listFiles } from "@/lib/fs";
 
 export async function GET(request: NextRequest) {
   try {
     const { searchParams } = new URL(request.url);
     const dir = searchParams.get("dir") || "";
+    const recursive = searchParams.get("recursive") === "true";
 
-    const files = await listFiles(dir);
+    const files = recursive
+      ? await listAllRecursive(dir)
+      : await listFiles(dir);
     return NextResponse.json(files);
   } catch (error) {
     console.error("Failed to list notes:", error);
