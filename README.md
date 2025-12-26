@@ -25,13 +25,16 @@ To deploy this application on your Synology NAS using Docker:
 #### 2. Strategy Choice
 You have two main options:
 
-**A. Build on NAS (Recommended for easy updates)**
-1. Clone this repository directly onto your NAS (via SSH or Git Server).
-2. Create a `.env` file in the root with your credentials.
-3. Open **Container Manager**, go to **Project**, click **Create**, and point it to the repository folder.
-4. It will use the `docker-compose.yml` to build and start the app.
+**A. Pull from GitHub Container Registry (Recommended)**
+GitHub automatically builds and hosts the image for you.
+1. On your NAS, open **Container Manager** > **Registry**.
+2. Click **Settings** > **Add** and add `ghcr.io`.
+3. Search for your image (e.g., `ghcr.io/your-username/note-geval`).
+4. Download the `latest` tag.
+5. Create a container using the image, mapping port 3000 and the volumes as described below.
 
-**B. Build Locally and Export**
+**B. Build on NAS**
+1. Clone this repository directly onto your NAS...
 1. Build the image on your local machine: `docker build -t note-geval:latest .`
 2. Save the image: `docker save note-geval:latest > note-geval.tar`
 3. Upload the `.tar` file to your NAS and import it in **Container Manager** > **Image** > **Add** > **From File**.
