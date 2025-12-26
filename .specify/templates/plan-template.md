@@ -31,7 +31,11 @@
 
 *GATE: Must pass before Phase 0 research. Re-check after Phase 1 design.*
 
-[Gates determined based on constitution file]
+- [ ] **Strict Typing**: Does the design avoid `any` and ensure full type safety?
+- [ ] **Testability**: Are core logic and complex UI components designed for `bun test`?
+- [ ] **UX Consistency**: Does the UI plan follow Tailwind/Radix patterns?
+- [ ] **Performance**: Are Server Components prioritized to minimize client-side JS?
+- [ ] **Build Integrity**: Is there a plan to verify the build (`bun run build`)?
 
 ## Project Structure
 

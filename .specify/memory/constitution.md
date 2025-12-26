@@ -1,50 +1,55 @@
-# [PROJECT_NAME] Constitution
-<!-- Example: Spec Constitution, TaskFlow Constitution, etc. -->
+<!--
+Sync Impact Report:
+- Version change: 0.0.0 → 1.0.0
+- Modified principles: Initial creation based on project context.
+- Added sections: Core Principles, Technology Stack & Constraints, Development Workflow, Governance.
+- Removed sections: None.
+- Templates updated: 
+  - ✅ .specify/templates/plan-template.md (Added principle-specific gates)
+  - ✅ .specify/templates/tasks-template.md (Added build/type-check verification tasks)
+- Follow-up TODOs: None.
+-->
+
+# Note Geval Constitution
 
 ## Core Principles
 
-### [PRINCIPLE_1_NAME]
-<!-- Example: I. Library-First -->
-[PRINCIPLE_1_DESCRIPTION]
-<!-- Example: Every feature starts as a standalone library; Libraries must be self-contained, independently testable, documented; Clear purpose required - no organizational-only libraries -->
+### I. Strict Typing & Linting (Code Quality)
+All code must pass Biome linting/formatting and TypeScript type checks (`bun run lint`, `bun run check-types`). No `any` types allowed unless explicitly justified and documented. Rationale: Maintain long-term maintainability and catch errors early.
 
-### [PRINCIPLE_2_NAME]
-<!-- Example: II. CLI Interface -->
-[PRINCIPLE_2_DESCRIPTION]
-<!-- Example: Every library exposes functionality via CLI; Text in/out protocol: stdin/args → stdout, errors → stderr; Support JSON + human-readable formats -->
+### II. Comprehensive Testing (Testing Standards)
+Core business logic and complex UI components must have unit or integration tests using `bun test`. Tests should be written alongside features to ensure reliability. Rationale: Prevent regressions and document expected behavior.
 
-### [PRINCIPLE_3_NAME]
-<!-- Example: III. Test-First (NON-NEGOTIABLE) -->
-[PRINCIPLE_3_DESCRIPTION]
-<!-- Example: TDD mandatory: Tests written → User approved → Tests fail → Then implement; Red-Green-Refactor cycle strictly enforced -->
+### III. UX & Design Consistency
+The UI must adhere to the established design system using Tailwind CSS and Radix-based components (following shadcn/ui patterns). Ensure responsiveness and accessibility (A11y) for all users. Rationale: Provide a cohesive and professional user experience.
 
-### [PRINCIPLE_4_NAME]
-<!-- Example: IV. Integration Testing -->
-[PRINCIPLE_4_DESCRIPTION]
-<!-- Example: Focus areas requiring integration tests: New library contract tests, Contract changes, Inter-service communication, Shared schemas -->
+### IV. High Performance & Next.js Best Practices
+Minimize client-side JavaScript by prioritizing Next.js Server Components. Optimize data access to the Synology NAS storage with efficient caching and minimal round-trips. Rationale: Ensure fast load times and efficient resource usage on NAS hardware.
 
-### [PRINCIPLE_5_NAME]
-<!-- Example: V. Observability, VI. Versioning & Breaking Changes, VII. Simplicity -->
-[PRINCIPLE_5_DESCRIPTION]
-<!-- Example: Text I/O ensures debuggability; Structured logging required; Or: MAJOR.MINOR.BUILD format; Or: Start simple, YAGNI principles -->
+### V. Continuous Integrity & Build Verification (QA Process)
+The application MUST always remain in a buildable state. Every feature implementation or refactor must conclude with a successful `bun run build` verification. Rationale: Ensure the project is always ready for deployment and free of build-time errors.
 
-## [SECTION_2_NAME]
-<!-- Example: Additional Constraints, Security Requirements, Performance Standards, etc. -->
+## Technology Stack & Constraints
 
-[SECTION_2_CONTENT]
-<!-- Example: Technology stack requirements, compliance standards, deployment policies, etc. -->
+- **Runtime**: Bun (Primary runtime for execution, testing, and bundling)
+- **Framework**: Next.js 16+ (App Router)
+- **Styling**: Tailwind CSS, PostCSS, Lucide icons
+- **Tools**: Biome (Linting & Formatting), TypeScript (Strict mode)
+- **State/Data**: TanStack Query (Data fetching), TanStack Form (Forms), TanStack Store (Global state)
+- **Storage**: Synology NAS via Docker volume (File-based storage)
 
-## [SECTION_3_NAME]
-<!-- Example: Development Workflow, Review Process, Quality Gates, etc. -->
+## Development Workflow
 
-[SECTION_3_CONTENT]
-<!-- Example: Code review requirements, testing gates, deployment approval process, etc. -->
+1. **Specification**: Create a detailed feature specification in `specs/`.
+2. **Implementation**: Code the feature following the principles above.
+3. **Verification**: Execute `bun run lint`, `bun run check-types`, and `bun test`.
+4. **Final Gate**: Verify the production build with `bun run build`.
 
 ## Governance
-<!-- Example: Constitution supersedes all other practices; Amendments require documentation, approval, migration plan -->
 
-[GOVERNANCE_RULES]
-<!-- Example: All PRs/reviews must verify compliance; Complexity must be justified; Use [GUIDANCE_FILE] for runtime development guidance -->
+- **Compliance**: All contributions must comply with these principles.
+- **Verification**: Tools (Biome, tsc, bun test) are the source of truth for compliance.
+- **Amendments**: Changes to this constitution require a version bump (SemVer) and updated ratification dates.
+- **Exceptions**: Any intentional violation of these principles must be documented in the Implementation Plan.
 
-**Version**: [CONSTITUTION_VERSION] | **Ratified**: [RATIFICATION_DATE] | **Last Amended**: [LAST_AMENDED_DATE]
-<!-- Example: Version: 2.1.1 | Ratified: 2025-06-13 | Last Amended: 2025-07-16 -->
+**Version**: 1.0.0 | **Ratified**: 2025-12-26 | **Last Amended**: 2025-12-26

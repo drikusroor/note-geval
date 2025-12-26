@@ -50,7 +50,8 @@ description: "Task list template for feature implementation"
 
 - [ ] T001 Create project structure per implementation plan
 - [ ] T002 Initialize [language] project with [framework] dependencies
-- [ ] T003 [P] Configure linting and formatting tools
+- [ ] T003 [P] Configure linting, formatting, and type-checking tools (Biome + tsc)
+- [ ] T004 Verify initial build capability (`bun run build`)
 
 ---
 
