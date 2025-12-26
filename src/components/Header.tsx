@@ -1,7 +1,5 @@
 import { Link } from '@tanstack/react-router'
 
-import ClerkHeader from '../integrations/clerk/header-user.tsx'
-
 import TanChatAIAssistant from './example-AIAssistant.tsx'
 
 import { useState } from 'react'
@@ -183,19 +181,6 @@ export default function Header() {
           )}
 
           <Link
-            to="/demo/clerk"
-            onClick={() => setIsOpen(false)}
-            className="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-800 transition-colors mb-2"
-            activeProps={{
-              className:
-                'flex items-center gap-3 p-3 rounded-lg bg-cyan-600 hover:bg-cyan-700 transition-colors mb-2',
-            }}
-          >
-            <Globe size={20} />
-            <span className="font-medium">Clerk</span>
-          </Link>
-
-          <Link
             to="/demo/drizzle"
             onClick={() => setIsOpen(false)}
             className="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-800 transition-colors mb-2"
@@ -368,8 +353,6 @@ export default function Header() {
         </nav>
 
         <div className="p-4 border-t border-gray-700 bg-gray-800 flex flex-col gap-2">
-          <ClerkHeader />
-
           <TanChatAIAssistant />
         </div>
       </aside>
