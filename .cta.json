@@ -1,0 +1,32 @@
+{
+  "projectName": "note-geval",
+  "mode": "file-router",
+  "typescript": true,
+  "tailwind": true,
+  "packageManager": "bun",
+  "addOnOptions": {
+    "drizzle": {
+      "database": "sqlite"
+    }
+  },
+  "git": true,
+  "version": 1,
+  "framework": "react-cra",
+  "chosenAddOns": [
+    "biome",
+    "nitro",
+    "start",
+    "workos",
+    "neon",
+    "compiler",
+    "drizzle",
+    "form",
+    "shadcn",
+    "t3env",
+    "table",
+    "store",
+    "tRPC",
+    "tanstack-query",
+    "tanchat"
+  ]
+}
