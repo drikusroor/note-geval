@@ -21,7 +21,7 @@ All code must pass Biome linting/formatting and TypeScript type checks (`bun run
 Core business logic and complex UI components must have unit or integration tests using `bun test`. Tests should be written alongside features to ensure reliability. Rationale: Prevent regressions and document expected behavior.
 
 ### III. UX & Design Consistency
-The UI must adhere to the established design system using Tailwind CSS and Radix-based components (following shadcn/ui patterns). Ensure responsiveness and accessibility (A11y) for all users. Rationale: Provide a cohesive and professional user experience.
+The UI must adhere to the established design system using Tailwind CSS and Radix-based components (following shadcn/ui patterns). Ensure responsiveness and accessibility (A11y) for all users. **Mobile-first responsive design is mandatory** - the application must be fully functional and intuitive on smartphones (especially iPhone), with touch-friendly controls (minimum 44px touch targets), appropriate text sizing, and optimized layouts for small screens. Rationale: Provide a cohesive and professional user experience across all devices, ensuring easy note creation and modification on mobile devices.
 
 ### IV. High Performance & Next.js Best Practices
 Minimize client-side JavaScript by prioritizing Next.js Server Components. Optimize data access to the Synology NAS storage with efficient caching and minimal round-trips. Rationale: Ensure fast load times and efficient resource usage on NAS hardware.

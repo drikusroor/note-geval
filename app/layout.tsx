@@ -7,6 +7,11 @@ const inter = Inter({ subsets: ["latin"] });
 export const metadata = {
   title: "Note Geval",
   description: "NAS Markdown Note Editor",
+  viewport: {
+    width: "device-width",
+    initialScale: 1,
+    maximumScale: 1,
+  },
 };
 
 export default function RootLayout({
