@@ -1,4 +1,6 @@
-# note-geval
+# Note Geval
+
+Note Geval is a Next.js web application whose goal is to create and manage notes stored on my Synology NAS through a Docker volume.
 
 To install dependencies:
 
