@@ -1,50 +1,44 @@
-# [PROJECT_NAME] Constitution
-<!-- Example: Spec Constitution, TaskFlow Constitution, etc. -->
+<!--
+Sync Impact Report:
+- Version Change: [Initial Template] -> 0.1.0
+- Modified Principles:
+  - Added "Code Quality & Consistency"
+  - Added "Testing Standards"
+  - Added "UX & UI Consistency"
+  - Added "Performance First"
+- Added Sections: N/A
+- Removed Sections: N/A
+- Templates Requiring Updates:
+  - .specify/templates/plan-template.md (✅ Check alignment with new principles)
+  - .specify/templates/spec-template.md (✅ Check alignment with new principles)
+  - .specify/templates/tasks-template.md (✅ Check alignment with new principles)
+- Follow-up TODOs: None
+-->
+
+# note-geval Constitution
 
 ## Core Principles
 
-### [PRINCIPLE_1_NAME]
-<!-- Example: I. Library-First -->
-[PRINCIPLE_1_DESCRIPTION]
-<!-- Example: Every feature starts as a standalone library; Libraries must be self-contained, independently testable, documented; Clear purpose required - no organizational-only libraries -->
+### I. Code Quality & Consistency
+Code must be clean, readable, and maintainable. We strictly adhere to **Biome** for linting and formatting. Variable and function names should be explicit and descriptive. We follow the established architectural patterns of the **TanStack** ecosystem (Router, Query, Store) to ensure consistency across the codebase. Refactoring for clarity is encouraged over premature optimization.
 
-### [PRINCIPLE_2_NAME]
-<!-- Example: II. CLI Interface -->
-[PRINCIPLE_2_DESCRIPTION]
-<!-- Example: Every library exposes functionality via CLI; Text in/out protocol: stdin/args → stdout, errors → stderr; Support JSON + human-readable formats -->
+### II. Testing Standards
+Reliability is paramount. We use **Vitest** for our testing framework. Logic-heavy utilities and critical business logic components **MUST** have unit tests. Integration tests are required for primary user flows to ensure system cohesion. All tests **MUST** pass before any code is merged. TDD (Test-Driven Development) is encouraged for complex logic.
 
-### [PRINCIPLE_3_NAME]
-<!-- Example: III. Test-First (NON-NEGOTIABLE) -->
-[PRINCIPLE_3_DESCRIPTION]
-<!-- Example: TDD mandatory: Tests written → User approved → Tests fail → Then implement; Red-Green-Refactor cycle strictly enforced -->
+### III. UX & UI Consistency
+We prioritize a consistent and accessible user experience. **Tailwind CSS** is the exclusive styling engine. Interactive components **MUST** utilize **Shadcn UI** (built on Radix Primitives) or standard HTML elements styled to match the design system. All interfaces **MUST** be responsive (mobile-first) and accessible (WCAG guidelines). Visual changes should not introduce jarring inconsistencies with the existing aesthetic.
 
-### [PRINCIPLE_4_NAME]
-<!-- Example: IV. Integration Testing -->
-[PRINCIPLE_4_DESCRIPTION]
-<!-- Example: Focus areas requiring integration tests: New library contract tests, Contract changes, Inter-service communication, Shared schemas -->
-
-### [PRINCIPLE_5_NAME]
-<!-- Example: V. Observability, VI. Versioning & Breaking Changes, VII. Simplicity -->
-[PRINCIPLE_5_DESCRIPTION]
-<!-- Example: Text I/O ensures debuggability; Structured logging required; Or: MAJOR.MINOR.BUILD format; Or: Start simple, YAGNI principles -->
-
-## [SECTION_2_NAME]
-<!-- Example: Additional Constraints, Security Requirements, Performance Standards, etc. -->
-
-[SECTION_2_CONTENT]
-<!-- Example: Technology stack requirements, compliance standards, deployment policies, etc. -->
-
-## [SECTION_3_NAME]
-<!-- Example: Development Workflow, Review Process, Quality Gates, etc. -->
-
-[SECTION_3_CONTENT]
-<!-- Example: Code review requirements, testing gates, deployment approval process, etc. -->
+### IV. Performance First
+Performance is a feature. We optimize for fast load times and smooth interactions. Route-based code splitting (lazy loading) is preferred to minimize initial bundle size. Data fetching **MUST** be efficient, utilizing **TanStack Query** caching and **TanStack Router** loaders to prevent waterfalls. Heavy computations should be memoized or moved off the main thread where possible.
 
 ## Governance
-<!-- Example: Constitution supersedes all other practices; Amendments require documentation, approval, migration plan -->
 
-[GOVERNANCE_RULES]
-<!-- Example: All PRs/reviews must verify compliance; Complexity must be justified; Use [GUIDANCE_FILE] for runtime development guidance -->
+This constitution serves as the primary source of truth for engineering standards within the `note-geval` project.
 
-**Version**: [CONSTITUTION_VERSION] | **Ratified**: [RATIFICATION_DATE] | **Last Amended**: [LAST_AMENDED_DATE]
-<!-- Example: Version: 2.1.1 | Ratified: 2025-06-13 | Last Amended: 2025-07-16 -->
+### Amendments
+Amendments to this constitution require a Pull Request with explicit justification. Changes to "Core Principles" require a MAJOR version bump if they fundamentally alter the development philosophy, or a MINOR version bump for additions/clarifications.
+
+### Compliance
+All Pull Requests and architectural decisions **MUST** be evaluated against these principles. Code reviews should explicitly reference these principles when requesting changes.
+
+**Version**: 0.1.0 | **Ratified**: 2025-12-26 | **Last Amended**: 2025-12-26
