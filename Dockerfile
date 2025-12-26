@@ -28,6 +28,9 @@ ENV JWT_SECRET=placeholder_secret_long_enough
 
 RUN bun run build
 
+# Ensure public directory exists (might be empty)
+RUN mkdir -p public
+
 # Final image
 FROM base AS release
 COPY --from=install /temp/prod/node_modules node_modules
