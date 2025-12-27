@@ -23,9 +23,9 @@
 - [x] Task: Conductor - User Manual Verification 'Theme Toggle UI - [ ] Task: Conductor - User Manual Verification 'Theme Toggle UI & Sidebar Integration' (Protocol in workflow.md) Sidebar Integration' (Protocol in workflow.md) 9c68ee9
 
 ## Phase 4: Component Audit & Final Polishing
-- [ ] Task: Audit UI Components for Theme Consistency
-    - [ ] Sub-task: Verify and adjust Editor, Preview, and File Explorer styles for light mode.
-    - [ ] Sub-task: Ensure code blocks and syntax highlighting are readable in both themes.
-- [ ] Task: Final UX Audit and Verification
-    - [ ] Sub-task: Perform a full pass to ensure consistent styling and smooth transitions across all pages.
-- [ ] Task: Conductor - User Manual Verification 'Component Audit & Final Polishing' (Protocol in workflow.md)
+- [x] Task: Audit UI Components for Theme Consistency
+    - [x] Sub-task: Verify and adjust Editor, Preview, and File Explorer styles for light mode.
+    - [x] Sub-task: Ensure code blocks and syntax highlighting are readable in both themes.
+- [x] Task: Final UX Audit and Verification
+    - [x] Sub-task: Perform a full pass to ensure consistent styling and smooth transitions across all pages.
+- [x] Task: Conductor - User Manual Verification 'Component Audit & Final Polishing' (Protocol in workflow.md) ae788e8

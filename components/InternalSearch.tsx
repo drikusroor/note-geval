@@ -19,11 +19,14 @@ export default function InternalSearch({ content }: InternalSearchProps) {
         e.preventDefault();
         setIsOpen(true);
       }
+      if (e.key === "Escape" && isOpen) {
+        setIsOpen(false);
+      }
     };
 
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, []);
+  }, [isOpen]);
 
   useEffect(() => {
     if (isOpen && inputRef.current) {

@@ -1,4 +1,5 @@
 import rehypeStringify from "rehype-stringify";
+import rehypeHighlight from "rehype-highlight";
 import remarkParse from "remark-parse";
 import remarkRehype from "remark-rehype";
 import remarkWikiLink from "remark-wiki-link";
@@ -17,6 +18,7 @@ export async function markdownToHtml(markdown: string, currentPath = "") {
       aliasDivider: "|",
     })
     .use(remarkRehype)
+    .use(rehypeHighlight)
     .use(rehypeStringify)
     .process(markdown);
 
