@@ -5,8 +5,14 @@ import type { SortAttribute, SortDirection } from "@/lib/utils/tree";
 import SidebarFilter from "./SidebarFilter";
 import SidebarSort from "./SidebarSort";
 import SidebarTree from "./SidebarTree";
+import { Plus } from "lucide-react";
+import { Button } from "./ui/button";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useRouter } from "next/navigation";
 
-export default function FileExplorer() {
+export default function FileExplorer({ border = true }: { border?: boolean }) {
+  const router = useRouter();
+  const queryClient = useQueryClient();
   const [query, setQuery] = useState("");
   const [sortAttr, setSortAttr] = useState<SortAttribute>(() => {
     if (typeof window !== "undefined") {
@@ -21,6 +27,23 @@ export default function FileExplorer() {
     return "asc";
   });
 
+  const createNoteMutation = useMutation({
+    mutationFn: async () => {
+      const name = `Untitled-${Date.now()}.md`;
+      const res = await fetch("/api/notes", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name, content: "" }),
+      });
+      if (!res.ok) throw new Error("Failed to create note");
+      return res.json();
+    },
+    onSuccess: (data) => {
+      queryClient.invalidateQueries({ queryKey: ["notes", "recursive"] });
+      router.push(`/notes/${data.path}`);
+    },
+  });
+
   const handleSortAttrChange = (attr: SortAttribute) => {
     setSortAttr(attr);
     localStorage.setItem("sort-attr", attr);
@@ -32,16 +55,29 @@ export default function FileExplorer() {
   };
 
   return (
-    <div className="flex flex-col h-full border-r bg-muted/30">
+    <div className={`flex flex-col h-full bg-muted/30 ${border ? "border-r" : ""}`}>
       <div className="p-4 border-b">
         <div className="flex items-center justify-between mb-4">
           <h2 className="font-semibold text-sm tracking-tight">Notes</h2>
-          <SidebarSort
-            attribute={sortAttr}
-            direction={sortDir}
-            onAttributeChange={handleSortAttrChange}
-            onDirectionChange={handleSortDirChange}
-          />
+          <div className="flex items-center gap-1">
+            <Button
+              variant="ghost"
+              size="icon"
+              className="h-8 w-8"
+              onClick={() => createNoteMutation.mutate()}
+              disabled={createNoteMutation.isPending}
+              title="New Note"
+              aria-label="New note"
+            >
+              <Plus className="h-4 w-4" />
+            </Button>
+            <SidebarSort
+              attribute={sortAttr}
+              direction={sortDir}
+              onAttributeChange={handleSortAttrChange}
+              onDirectionChange={handleSortDirChange}
+            />
+          </div>
         </div>
         <SidebarFilter query={query} onQueryChange={setQuery} />
       </div>

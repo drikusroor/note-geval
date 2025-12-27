@@ -10,19 +10,19 @@
 - [x] Task: Conductor - User Manual Verification 'Mobile Navigation - [ ] Task: Conductor - User Manual Verification 'Mobile Navigation & Layout' (Protocol in workflow.md) Layout' (Protocol in workflow.md) 0a3cd42
 
 ## Phase 2: Editor Optimization (Functionality)
-- [ ] Task: Optimize Note Editor for Mobile Input
-    - [ ] Sub-task: Write Tests for Mobile Editor Focus and Input
-    - [ ] Sub-task: Adjust Editor Font Sizes and Padding for touch devices
-- [ ] Task: Implement Mobile "Quick Capture" Action
-    - [ ] Sub-task: Write Tests for Quick New Note Action
-    - [ ] Sub-task: Add a prominent "New Note" button for mobile users
-- [ ] Task: Conductor - User Manual Verification 'Editor Optimization' (Protocol in workflow.md)
+- [x] Task: Optimize Note Editor for Mobile Input
+    - [x] Sub-task: Write Tests for Mobile Editor Focus and Input
+    - [x] Sub-task: Adjust Editor Font Sizes and Padding for touch devices
+- [x] Task: Implement Mobile "Quick Capture" Action
+    - [x] Sub-task: Write Tests for Quick New Note Action
+    - [x] Sub-task: Add a prominent "New Note" button for mobile users
+- [x] Task: Conductor - User Manual Verification 'Editor Optimization' (Protocol in workflow.md) [checkpoint: 0a3cd42]
 
 ## Phase 3: File Explorer & Navigation (UX)
-- [ ] Task: Adapt File Explorer for Small Screens
-    - [ ] Sub-task: Write Tests for File Explorer Responsiveness
-    - [ ] Sub-task: Implement Collapsible or Modal-based File Explorer for Mobile
-- [ ] Task: Final UX Polishing and Performance Check
-    - [ ] Sub-task: Verify touch targets and contrast on mobile
-    - [ ] Sub-task: Audit mobile performance
-- [ ] Task: Conductor - User Manual Verification 'File Explorer & Navigation' (Protocol in workflow.md)
+- [x] Task: Adapt File Explorer for Small Screens
+    - [x] Sub-task: Write Tests for File Explorer Responsiveness
+    - [x] Sub-task: Implement Collapsible or Modal-based File Explorer for Mobile
+- [x] Task: Final UX Polishing and Performance Check
+    - [x] Sub-task: Verify touch targets and contrast on mobile
+    - [x] Sub-task: Audit mobile performance
+- [x] Task: Conductor - User Manual Verification 'File Explorer & Navigation' (Protocol in workflow.md) [checkpoint: 1933425]

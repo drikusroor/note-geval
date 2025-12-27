@@ -41,22 +41,26 @@ export default function NoteEditor({ path }: NoteEditorProps) {
     }
   }, [note]);
 
-  // Set default view based on screen size
+  // Set initial view on mount
   useEffect(() => {
-    const handleResize = () => {
-      if (window.innerWidth >= 768 && view === "edit") {
-        setView("split");
-      }
-    };
-
-    // Set initial view
     if (window.innerWidth >= 768) {
       setView("split");
     }
+  }, []);
+
+  // Handle window resizing
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth >= 768) {
+        setView((prev) => (prev === "edit" || prev === "preview" ? "split" : prev));
+      } else {
+        setView((prev) => (prev === "split" ? "edit" : prev));
+      }
+    };
 
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
-  }, [view]);
+  }, []);
 
   if (isLoading) return <div className="p-8">Loading note...</div>;
 
@@ -68,25 +72,25 @@ export default function NoteEditor({ path }: NoteEditorProps) {
           <button
             type="button"
             onClick={() => setView("edit")}
-            className={`p-3 md:p-2 rounded-md transition-colors ${view === "edit" ? "bg-accent" : "hover:bg-accent/50"}`}
+            className={`p-3 md:p-2 rounded-md transition-colors min-h-[44px] min-w-[44px] md:min-h-0 md:min-w-0 flex items-center justify-center ${view === "edit" ? "bg-accent" : "hover:bg-accent/50"}`}
             title="Edit"
             aria-label="Edit mode"
           >
-            <Edit3 className="w-5 h-5 md:w-4 md:h-4" />
+            <Edit3 className="w-6 h-6 md:w-4 md:h-4" />
           </button>
           <button
             type="button"
             onClick={() => setView("preview")}
-            className={`p-3 md:p-2 rounded-md transition-colors ${view === "preview" ? "bg-accent" : "hover:bg-accent/50"}`}
+            className={`p-3 md:p-2 rounded-md transition-colors min-h-[44px] min-w-[44px] md:min-h-0 md:min-w-0 flex items-center justify-center ${view === "preview" ? "bg-accent" : "hover:bg-accent/50"}`}
             title="Preview"
             aria-label="Preview mode"
           >
-            <Eye className="w-5 h-5 md:w-4 md:h-4" />
+            <Eye className="w-6 h-6 md:w-4 md:h-4" />
           </button>
           <button
             type="button"
             onClick={() => setView("split")}
-            className={`p-3 md:p-2 rounded-md transition-colors hidden md:flex ${view === "split" ? "bg-accent" : "hover:bg-accent/50"}`}
+            className={`p-3 md:p-2 rounded-md transition-colors hidden md:flex min-h-[44px] min-w-[44px] md:min-h-0 md:min-w-0 items-center justify-center ${view === "split" ? "bg-accent" : "hover:bg-accent/50"}`}
             title="Split View"
             aria-label="Split view mode"
           >
@@ -103,7 +107,7 @@ export default function NoteEditor({ path }: NoteEditorProps) {
           className="flex items-center gap-2 px-4 py-2 md:px-3 md:py-1.5 bg-primary text-primary-foreground rounded-md text-sm font-medium hover:bg-primary/90 disabled:opacity-50 transition-colors min-h-[44px] md:min-h-0"
           aria-label="Save note"
         >
-          <Save className="w-5 h-5 md:w-4 md:h-4" />
+          <Save className="w-6 h-6 md:w-4 md:h-4" />
           <span className="hidden sm:inline">
             {mutation.isPending ? "Saving..." : "Save"}
           </span>
