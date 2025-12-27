@@ -1,12 +1,12 @@
 # Plan: Enhance Mobile UX and Responsive Design
 
 ## Phase 1: Mobile Navigation & Layout (UI/UX)
-- [ ] Task: Design and Implement Mobile-First Sidebar/Navigation
-    - [ ] Sub-task: Write Tests for Mobile Navigation Toggle
-    - [ ] Sub-task: Implement Mobile-Friendly Sidebar using Radix UI/Shadcn
-- [ ] Task: Optimize Layout for Small Screens
-    - [ ] Sub-task: Write Tests for Responsive Main Layout
-    - [ ] Sub-task: Implement Responsive Grid/Flex adjustments for the main view
+- [x] Task: Design and Implement Mobile-First Sidebar/Navigation
+    - [x] Sub-task: Write Tests for Mobile Navigation Toggle
+    - [x] Sub-task: Implement Mobile-Friendly Sidebar using Radix UI/Shadcn
+- [x] Task: Optimize Layout for Small Screens
+    - [x] Sub-task: Write Tests for Responsive Main Layout
+    - [x] Sub-task: Implement Responsive Grid/Flex adjustments for the main view
 - [ ] Task: Conductor - User Manual Verification 'Mobile Navigation & Layout' (Protocol in workflow.md)
 
 ## Phase 2: Editor Optimization (Functionality)

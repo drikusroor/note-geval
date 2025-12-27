@@ -1,0 +1,8 @@
+{
+  "track_id": "theme_support_20251227",
+  "type": "feature",
+  "status": "new",
+  "created_at": "2025-12-27T11:00:00Z",
+  "updated_at": "2025-12-27T11:00:00Z",
+  "description": "Add support for Light, Dark, and System modes using next-themes, ensuring architecture is ready for future custom themes."
+}
