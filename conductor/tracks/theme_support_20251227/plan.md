@@ -1,11 +1,11 @@
 # Plan: Theme Support (Light/Dark/System)
 
-## Phase 1: Infrastructure & Core Setup
+## Phase 1: Infrastructure ## Phase 1: Infrastructure & Core Setup Core Setup [checkpoint: 84ecaae]
 - [x] Task: Install and Configure `next-themes`
     - [x] Sub-task: Install the `next-themes` package.
     - [x] Sub-task: Update `tailwind.config.cjs` to use the 'class' strategy for dark mode.
     - [x] Sub-task: Create a `ThemeProvider` component and wrap the children in `app/providers.tsx`.
-- [ ] Task: Conductor - User Manual Verification 'Infrastructure & Core Setup' (Protocol in workflow.md)
+- [x] Task: Conductor - User Manual Verification 'Infrastructure - [ ] Task: Conductor - User Manual Verification 'Infrastructure & Core Setup' (Protocol in workflow.md) Core Setup' (Protocol in workflow.md) 84ecaae
 
 ## Phase 2: Global Styling & Transitions
 - [ ] Task: Define Light Mode Color Palette and Transitions
