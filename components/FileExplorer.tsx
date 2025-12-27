@@ -9,6 +9,7 @@ import { Plus } from "lucide-react";
 import { Button } from "./ui/button";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
+import { ThemeToggle } from "./ThemeToggle";
 
 export default function FileExplorer({ border = true }: { border?: boolean }) {
   const router = useRouter();
@@ -86,6 +87,10 @@ export default function FileExplorer({ border = true }: { border?: boolean }) {
           filterQuery={query}
           sortCriteria={{ attribute: sortAttr, direction: sortDir }}
         />
+      </div>
+      <div className="p-4 border-t bg-muted/50 flex items-center justify-between">
+        <ThemeToggle />
+        <span className="text-xs text-muted-foreground italic">Note Geval</span>
       </div>
     </div>
   );

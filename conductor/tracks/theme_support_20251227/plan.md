@@ -1,25 +1,25 @@
 # Plan: Theme Support (Light/Dark/System)
 
-## Phase 1: Infrastructure ## Phase 1: Infrastructure & Core Setup Core Setup [checkpoint: 84ecaae]
+## Phase 1: Infrastructure & Core Setup [checkpoint: 84ecaae]
 - [x] Task: Install and Configure `next-themes`
     - [x] Sub-task: Install the `next-themes` package.
     - [x] Sub-task: Update `tailwind.config.cjs` to use the 'class' strategy for dark mode.
     - [x] Sub-task: Create a `ThemeProvider` component and wrap the children in `app/providers.tsx`.
-- [x] Task: Conductor - User Manual Verification 'Infrastructure - [ ] Task: Conductor - User Manual Verification 'Infrastructure & Core Setup' (Protocol in workflow.md) Core Setup' (Protocol in workflow.md) 84ecaae
+- [x] Task: Conductor - User Manual Verification 'Infrastructure & Core Setup' (Protocol in workflow.md) 84ecaae
 
-## Phase 2: Global Styling ## Phase 2: Global Styling & Transitions Transitions [checkpoint: acf1dcc]
+## Phase 2: Global Styling & Transitions [checkpoint: acf1dcc]
 - [x] Task: Define Light Mode Color Palette and Transitions
     - [x] Sub-task: Write Tests to verify Light/Dark CSS variable presence.
     - [x] Sub-task: Update `app/globals.css` with comprehensive light mode variables and smooth CSS transitions.
-- [x] Task: Conductor - User Manual Verification 'Global Styling - [ ] Task: Conductor - User Manual Verification 'Global Styling & Transitions' (Protocol in workflow.md) Transitions' (Protocol in workflow.md) acf1dcc
+- [x] Task: Conductor - User Manual Verification 'Global Styling & Transitions' (Protocol in workflow.md) acf1dcc
 
 ## Phase 3: Theme Toggle UI & Sidebar Integration
-- [ ] Task: Implement Theme Toggle Component
-    - [ ] Sub-task: Write Tests for Theme Switching logic in a new `ThemeToggle` component.
-    - [ ] Sub-task: Create the `ThemeToggle` component using Radix UI/Shadcn components.
-- [ ] Task: Integrate Toggle into Sidebar
-    - [ ] Sub-task: Update Sidebar layout to include the `ThemeToggle` at the bottom.
-    - [ ] Sub-task: Ensure the toggle is accessible on mobile via `MobileNav`.
+- [x] Task: Implement Theme Toggle Component
+    - [x] Sub-task: Write Tests for Theme Switching logic in a new `ThemeToggle` component.
+    - [x] Sub-task: Create the `ThemeToggle` component using Radix UI/Shadcn components.
+- [x] Task: Integrate Toggle into Sidebar
+    - [x] Sub-task: Add the theme toggle to the bottom of the sidebar.
+    - [x] Sub-task: Ensure the toggle is accessible on mobile via `MobileNav`.
 - [ ] Task: Conductor - User Manual Verification 'Theme Toggle UI & Sidebar Integration' (Protocol in workflow.md)
 
 ## Phase 4: Component Audit & Final Polishing
