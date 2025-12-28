@@ -1,7 +1,7 @@
 "use client";
 
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { Edit3, Eye, Save } from "lucide-react";
+import { Columns2, Edit3, Eye, Save } from "lucide-react";
 import { useEffect, useState } from "react";
 import Editor from "./Editor";
 import InternalSearch from "./InternalSearch";
@@ -94,10 +94,7 @@ export default function NoteEditor({ path }: NoteEditorProps) {
             title="Split View"
             aria-label="Split view mode"
           >
-            <div className="flex gap-0.5">
-              <div className="w-1.5 h-3 border-r" />
-              <div className="w-1.5 h-3" />
-            </div>
+            <Columns2 className="w-6 h-6 md:w-4 md:h-4" />
           </button>
         </div>
         <button
