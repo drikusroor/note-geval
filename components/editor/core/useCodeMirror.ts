@@ -52,7 +52,7 @@ export function useCodeMirror({
       view.destroy();
       setView(null);
     };
-  }, [parentRef]); // Intentionally empty deps for extensions/initialDoc to avoid re-init
+  }, [parentRef, extensions, initialDoc]); // Intentionally empty deps for extensions/initialDoc to avoid re-init
 
   return { view };
 }

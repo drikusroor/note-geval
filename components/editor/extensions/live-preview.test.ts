@@ -11,7 +11,7 @@ describe("live-preview extension", () => {
     const state = EditorState.create({
       doc,
       extensions,
-      selection: { head: 9 } // On Line 2
+      selection: { anchor: 9 } // On Line 2
     });
 
     const decorations = state.field(livePreviewField);
@@ -28,7 +28,7 @@ describe("live-preview extension", () => {
     const state = EditorState.create({
       doc,
       extensions,
-      selection: { head: 2 } // On Line 1
+      selection: { anchor: 2 } // On Line 1
     });
 
     const decorations = state.field(livePreviewField);

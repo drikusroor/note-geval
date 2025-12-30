@@ -35,7 +35,6 @@ global.Text = window.Text as any;
 global.Element = window.Element as any;
 global.Event = window.Event as any;
 
-// @ts-expect-error
 expect.extend(matchers);
 
 afterEach(() => {

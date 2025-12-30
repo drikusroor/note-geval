@@ -11,7 +11,7 @@ describe("inline-styles extension", () => {
   };
 
   test("hides marks when cursor is outside", () => {
-    const state = EditorState.create({ doc: "  *italic*", extensions, selection: { head: 0 } });
+    const state = EditorState.create({ doc: "  *italic*", extensions, selection: { anchor: 0 } });
     let hasReplace = false;
     state.field(inlineStylesField).between(2, 3, (_from, _to, value) => {
       if (isHiddenMark(value)) hasReplace = true;
@@ -53,12 +53,12 @@ describe("inline-styles extension", () => {
     const decorations = state.field(inlineStylesField);
     
     let firstMarkHidden = false;
-    decorations.between(0, 1, (from, to, value) => {
+    decorations.between(0, 1, (_from, _to, value) => {
       if (isHiddenMark(value)) firstMarkHidden = true;
     });
     
     let lastMarkHidden = false;
-    decorations.between(20, 21, (from, to, value) => {
+    decorations.between(20, 21, (_from, _to, value) => {
       if (isHiddenMark(value)) lastMarkHidden = true;
     });
 

@@ -11,7 +11,7 @@ describe("list-handling extension", () => {
     const state = EditorState.create({
       doc,
       extensions,
-      selection: { head: 5 } // In the middle of "Item 1"
+      selection: { anchor: 5 } // In the middle of "Item 1"
     });
 
     const decorations = state.field(listHandlingField);
@@ -30,7 +30,7 @@ describe("list-handling extension", () => {
     const state = EditorState.create({
       doc,
       extensions,
-      selection: { head: 0 } // On the '-'
+      selection: { anchor: 0 } // On the '-'
     });
 
     const decorations = state.field(listHandlingField);
