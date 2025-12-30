@@ -17,6 +17,7 @@ export function useCodeMirror({
 }: UseCodeMirrorProps) {
   const [view, setView] = useState<EditorView | null>(null);
   const stateRef = useRef({ onChange });
+  const initializedRef = useRef(false);
 
   // Keep callback fresh in ref to avoid re-init
   useEffect(() => {
@@ -24,7 +25,7 @@ export function useCodeMirror({
   }, [onChange]);
 
   useEffect(() => {
-    if (!parentRef.current) return;
+    if (!parentRef.current || initializedRef.current) return;
 
     const updateListener = EditorView.updateListener.of((update) => {
       if (update.docChanged && stateRef.current.onChange) {
@@ -41,18 +42,23 @@ export function useCodeMirror({
       ],
     });
 
-    const view = new EditorView({
+    const editorView = new EditorView({
       state,
       parent: parentRef.current,
     });
 
-    setView(view);
+    setView(editorView);
+    initializedRef.current = true;
 
     return () => {
-      view.destroy();
+      editorView.destroy();
       setView(null);
+      initializedRef.current = false;
     };
-  }, [parentRef, extensions, initialDoc]); // Intentionally empty deps for extensions/initialDoc to avoid re-init
+    // initialDoc and extensions are only used for initial setup.
+    // Path changes are handled by the 'key' prop on the NoteEditor component.
+    // biome-ignore lint/correctness/useExhaustiveDependencies: intentional
+  }, [parentRef]);
 
   return { view };
 }
