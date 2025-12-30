@@ -7,6 +7,7 @@ interface InternalSearchProps {
   content: string;
 }
 
+// biome-ignore lint/correctness/noUnusedFunctionParameters: intended use
 export default function InternalSearch({ content }: InternalSearchProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [query, setQuery] = useState("");
@@ -51,6 +52,7 @@ export default function InternalSearch({ content }: InternalSearchProps) {
           onChange={(e) => setQuery(e.target.value)}
         />
         <button
+          type="button"
           onClick={() => setIsFuzzy(!isFuzzy)}
           className={`p-1 rounded ${isFuzzy ? "bg-primary text-primary-foreground" : "hover:bg-accent"}`}
           title="Toggle Fuzzy Match"
@@ -58,13 +60,14 @@ export default function InternalSearch({ content }: InternalSearchProps) {
           <Sparkles className="w-3 h-3" />
         </button>
         <div className="flex border-l pl-2 gap-1">
-          <button className="p-1 hover:bg-accent rounded">
+          <button type="button" className="p-1 hover:bg-accent rounded">
             <ChevronUp className="w-4 h-4 text-muted-foreground" />
           </button>
-          <button className="p-1 hover:bg-accent rounded">
+          <button type="button" className="p-1 hover:bg-accent rounded">
             <ChevronDown className="w-4 h-4 text-muted-foreground" />
           </button>
           <button
+            type="button"
             onClick={() => setIsOpen(false)}
             className="p-1 hover:bg-accent rounded"
           >

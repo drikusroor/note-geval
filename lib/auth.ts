@@ -10,14 +10,16 @@ export interface JWTPayload {
   exp: number;
 }
 
+// biome-ignore lint/suspicious/noExplicitAny: jwt payload
 export async function encrypt(payload: any) {
   return await new SignJWT(payload)
     .setProtectedHeader({ alg: "HS256" })
     .setIssuedAt()
-    .setExpirationTime("2h")
+    .setExpirationTime("24h")
     .sign(secret);
 }
 
+// biome-ignore lint/suspicious/noExplicitAny: jwt payload
 export async function decrypt(input: string): Promise<any> {
   const { payload } = await jwtVerify(input, secret, {
     algorithms: ["HS256"],

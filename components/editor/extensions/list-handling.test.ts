@@ -1,6 +1,6 @@
-import { expect, test, describe } from "bun:test";
-import { EditorState } from "@codemirror/state";
+import { describe, expect, test } from "bun:test";
 import { markdown } from "@codemirror/lang-markdown";
+import { EditorState } from "@codemirror/state";
 import { listHandlingField } from "./list-handling";
 
 describe("list-handling extension", () => {
@@ -11,17 +11,18 @@ describe("list-handling extension", () => {
     const state = EditorState.create({
       doc,
       extensions,
-      selection: { anchor: 5 } // In the middle of "Item 1"
+      selection: { anchor: 5 }, // In the middle of "Item 1"
     });
 
     const decorations = state.field(listHandlingField);
     let widgetFound = false;
     decorations.between(0, 1, (from, to, value) => {
+      // biome-ignore lint/suspicious/noExplicitAny: intended use
       if (from === 0 && to === 1 && (value as any).widget !== undefined) {
-          widgetFound = true;
+        widgetFound = true;
       }
     });
-    
+
     expect(widgetFound).toBe(true);
   });
 
@@ -30,17 +31,18 @@ describe("list-handling extension", () => {
     const state = EditorState.create({
       doc,
       extensions,
-      selection: { anchor: 0 } // On the '-'
+      selection: { anchor: 0 }, // On the '-'
     });
 
     const decorations = state.field(listHandlingField);
     let widgetFound = false;
     decorations.between(0, 1, (from, to, value) => {
-       if (from === 0 && to === 1 && (value as any).widget !== undefined) {
-           widgetFound = true;
-       }
+      // biome-ignore lint/suspicious/noExplicitAny: intended use
+      if (from === 0 && to === 1 && (value as any).widget !== undefined) {
+        widgetFound = true;
+      }
     });
-    
+
     expect(widgetFound).toBe(false);
   });
 });

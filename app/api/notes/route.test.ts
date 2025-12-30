@@ -1,6 +1,6 @@
-import { describe, expect, test, mock } from "bun:test";
-import { POST } from "./route";
+import { describe, expect, mock, test } from "bun:test";
 import { NextRequest } from "next/server";
+import { POST } from "./route";
 
 mock.module("@/lib/fs", () => ({
   writeNote: mock(() => Promise.resolve()),

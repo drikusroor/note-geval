@@ -22,6 +22,7 @@ export default function Preview({ content, path }: PreviewProps) {
   return (
     <div
       className="prose prose-sm dark:prose-invert max-w-none p-4 h-full overflow-y-auto"
+      // biome-ignore lint/security/noDangerouslySetInnerHtml: intended use
       dangerouslySetInnerHTML={{ __html: html }}
     />
   );

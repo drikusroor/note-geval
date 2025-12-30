@@ -1,5 +1,5 @@
-import rehypeStringify from "rehype-stringify";
 import rehypeHighlight from "rehype-highlight";
+import rehypeStringify from "rehype-stringify";
 import remarkParse from "remark-parse";
 import remarkRehype from "remark-rehype";
 import remarkWikiLink from "remark-wiki-link";

@@ -1,5 +1,10 @@
 import { syntaxTree } from "@codemirror/language";
-import { RangeSetBuilder, StateField, type EditorState, type Range } from "@codemirror/state";
+import {
+  type EditorState,
+  type Range,
+  RangeSetBuilder,
+  StateField,
+} from "@codemirror/state";
 import { Decoration, type DecorationSet, EditorView } from "@codemirror/view";
 
 /**
@@ -23,7 +28,7 @@ export const livePreviewField = StateField.define<DecorationSet>({
     }
     return decorations.map(tr.changes);
   },
-  provide: f => EditorView.decorations.from(f)
+  provide: (f) => EditorView.decorations.from(f),
 });
 
 function buildDecorations(state: EditorState): DecorationSet {
@@ -40,7 +45,7 @@ function buildDecorations(state: EditorState): DecorationSet {
           decorations.push(hideDecoration.range(node.from, node.to));
         }
       }
-      
+
       // Check for QuoteMark (e.g., >)
       if (node.name === "QuoteMark") {
         const line = state.doc.lineAt(node.from).number;
@@ -56,10 +61,15 @@ function buildDecorations(state: EditorState): DecorationSet {
           decorations.push(hideDecoration.range(node.from, node.to));
         }
       }
-    }
+    },
   });
 
-  decorations.sort((a, b) => a.from - b.from || (a.value as any).startSide - (b.value as any).startSide);
+  decorations.sort(
+    (a, b) =>
+      a.from - b.from ||
+      // biome-ignore lint/suspicious/noExplicitAny: accessing startSide
+      (a.value as any).startSide - (b.value as any).startSide,
+  );
 
   const builder = new RangeSetBuilder<Decoration>();
   for (const deco of decorations) {

@@ -1,4 +1,4 @@
-import { describe, expect, test, mock, afterAll } from "bun:test";
+import { afterAll, describe, expect, mock, test } from "bun:test";
 import { render } from "@testing-library/react";
 import DashboardLayout from "./layout";
 
@@ -22,7 +22,7 @@ describe("DashboardLayout", () => {
     const { getByTestId } = render(
       <DashboardLayout>
         <div data-testid="children">Children</div>
-      </DashboardLayout>
+      </DashboardLayout>,
     );
 
     expect(getByTestId("file-explorer")).toBeTruthy();
@@ -34,9 +34,9 @@ describe("DashboardLayout", () => {
     const { getByTestId } = render(
       <DashboardLayout>
         <div data-testid="children">Children</div>
-      </DashboardLayout>
+      </DashboardLayout>,
     );
-    
+
     const desktopAside = getByTestId("file-explorer").parentElement;
     expect(desktopAside?.className).toContain("hidden");
     expect(desktopAside?.className).toContain("md:block");

@@ -14,10 +14,10 @@ export default function DashboardLayout({
       <aside className="w-64 flex-shrink-0 hidden md:block">
         <FileExplorer />
       </aside>
-      
+
       {/* Mobile Navigation */}
       <MobileNav />
-      
+
       <main className="flex-1 relative overflow-y-auto bg-background">
         {children}
       </main>

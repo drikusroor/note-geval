@@ -33,15 +33,15 @@ export default function SidebarSort({
 }: SidebarSortProps) {
   return (
     <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <button
-                type="button"
-                className="p-1 rounded-md hover:bg-accent text-muted-foreground transition-colors"
-                title="Sort notes"
-              >
-                <ListFilter className="w-4 h-4" />
-              </button>
-            </DropdownMenuTrigger>
+      <DropdownMenuTrigger asChild>
+        <button
+          type="button"
+          className="p-1 rounded-md hover:bg-accent text-muted-foreground transition-colors"
+          title="Sort notes"
+        >
+          <ListFilter className="w-4 h-4" />
+        </button>
+      </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="w-48">
         <DropdownMenuLabel>Sort By</DropdownMenuLabel>
         <DropdownMenuSeparator />

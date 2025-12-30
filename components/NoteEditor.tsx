@@ -2,7 +2,7 @@
 
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { Columns2, Edit3, Eye, Save } from "lucide-react";
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import Editor from "./Editor";
 import InternalSearch from "./InternalSearch";
 import Preview from "./Preview";
@@ -83,7 +83,9 @@ export default function NoteEditor({ path }: NoteEditorProps) {
   useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth >= 768) {
-        setView((prev) => (prev === "edit" || prev === "preview" ? "split" : prev));
+        setView((prev) =>
+          prev === "edit" || prev === "preview" ? "split" : prev,
+        );
       } else {
         setView((prev) => (prev === "split" ? "edit" : prev));
       }
@@ -147,7 +149,11 @@ export default function NoteEditor({ path }: NoteEditorProps) {
           <div
             className={`flex-1 overflow-hidden ${view === "split" ? "border-r" : ""}`}
           >
-            <Editor value={content} onChange={handleContentChange} inputRef={editorRef} />
+            <Editor
+              value={content}
+              onChange={handleContentChange}
+              inputRef={editorRef}
+            />
           </div>
         )}
         {(view === "preview" || view === "split") && (

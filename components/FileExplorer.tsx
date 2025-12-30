@@ -1,15 +1,15 @@
 "use client";
 
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { Plus } from "lucide-react";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import type { SortAttribute, SortDirection } from "@/lib/utils/tree";
 import SidebarFilter from "./SidebarFilter";
 import SidebarSort from "./SidebarSort";
 import SidebarTree from "./SidebarTree";
-import { Plus } from "lucide-react";
-import { Button } from "./ui/button";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { useRouter } from "next/navigation";
 import { ThemeToggle } from "./ThemeToggle";
+import { Button } from "./ui/button";
 
 export default function FileExplorer({ border = true }: { border?: boolean }) {
   const router = useRouter();
@@ -56,7 +56,9 @@ export default function FileExplorer({ border = true }: { border?: boolean }) {
   };
 
   return (
-    <div className={`flex flex-col h-full bg-muted/30 ${border ? "border-r" : ""}`}>
+    <div
+      className={`flex flex-col h-full bg-muted/30 ${border ? "border-r" : ""}`}
+    >
       <div className="p-4 border-b">
         <div className="flex items-center justify-between mb-4">
           <h2 className="font-semibold text-sm tracking-tight">Notes</h2>

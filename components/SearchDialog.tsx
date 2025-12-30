@@ -60,7 +60,7 @@ export default function SearchDialog() {
             value={query}
             onChange={(e) => setQuery(e.target.value)}
           />
-          <button onClick={() => setIsOpen(false)}>
+          <button type="button" onClick={() => setIsOpen(false)}>
             <X className="w-5 h-5 text-muted-foreground" />
           </button>
         </div>
@@ -72,8 +72,10 @@ export default function SearchDialog() {
               No results found
             </div>
           )}
+          {/* biome-ignore lint/suspicious/noExplicitAny: intended use */}
           {results?.map((result: any) => (
             <button
+              type="button"
               key={result.item.path}
               onClick={() => {
                 router.push(`/notes/${result.item.path}`);

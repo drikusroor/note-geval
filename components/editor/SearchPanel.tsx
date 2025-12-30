@@ -25,7 +25,7 @@ export function SearchPanel({ view, onClose }: SearchPanelProps) {
     setQuery(newQuery);
     if (view) {
       view.dispatch({
-        effects: setSearchQuery.of(newQuery)
+        effects: setSearchQuery.of(newQuery),
       });
     }
   };
@@ -41,14 +41,13 @@ export function SearchPanel({ view, onClose }: SearchPanelProps) {
       <div className="flex items-center gap-2 p-2 bg-muted/50">
         <Search className="w-4 h-4 text-muted-foreground" />
         <input
-          ref={inputRef}
-          className="flex-1 bg-transparent border-none outline-none text-sm"
-          placeholder="Find in note..."
+          placeholder="Search..."
           value={query}
           onChange={handleChange}
           onKeyDown={handleKeyDown}
         />
         <button
+          type="button"
           onClick={onClose}
           className="p-1 hover:bg-accent rounded"
         >

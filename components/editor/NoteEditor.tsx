@@ -1,14 +1,14 @@
 "use client";
 
+import type { EditorView } from "@codemirror/view";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { Save } from "lucide-react";
-import { useEffect, useState, useMemo, useCallback } from "react";
-import type { EditorView } from "@codemirror/view";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { CoreEditor } from "./core";
 import { markdownExtensions } from "./core/defaults";
-import { livePreview } from "./extensions/live-preview";
 import { inlineStyles } from "./extensions/inline-styles";
 import { listHandling } from "./extensions/list-handling";
+import { livePreview } from "./extensions/live-preview";
 import { searchExtensions } from "./extensions/search";
 import { SearchPanel } from "./SearchPanel";
 
@@ -61,32 +61,35 @@ export function NewNoteEditor({ path }: NewNoteEditorProps) {
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, []);
 
-  const extensions = useMemo(() => [
-    ...markdownExtensions,
-    livePreview(),
-    inlineStyles(),
-    listHandling(),
-    searchExtensions(),
-  ], []);
+  const extensions = useMemo(
+    () => [
+      ...markdownExtensions,
+      livePreview(),
+      inlineStyles(),
+      listHandling(),
+      searchExtensions(),
+    ],
+    [],
+  );
 
   const handleViewCreated = useCallback((view: EditorView) => {
     setView(view);
   }, []);
 
-  if (isLoading || content === null) return <div className="p-8">Loading note...</div>;
+  if (isLoading || content === null)
+    return <div className="p-8">Loading note...</div>;
 
   return (
     <div className="flex flex-col h-full relative">
       {isSearchOpen && (
-        <SearchPanel 
-          view={view} 
-          onClose={() => setIsSearchOpen(false)} 
-        />
+        <SearchPanel view={view} onClose={() => setIsSearchOpen(false)} />
       )}
-      
+
       <div className="flex items-center justify-between p-3 md:p-2 border-b bg-muted/50 gap-2">
         <div className="flex items-center gap-1 md:gap-2">
-           <span className="text-xs font-mono text-muted-foreground px-2">Live Preview Editor</span>
+          <span className="text-xs font-mono text-muted-foreground px-2">
+            Live Preview Editor
+          </span>
         </div>
         <button
           type="button"

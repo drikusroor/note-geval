@@ -1,6 +1,16 @@
 import { syntaxTree } from "@codemirror/language";
-import { RangeSetBuilder, StateField, type EditorState, type Range } from "@codemirror/state";
-import { Decoration, type DecorationSet, EditorView, WidgetType } from "@codemirror/view";
+import {
+  type EditorState,
+  type Range,
+  RangeSetBuilder,
+  StateField,
+} from "@codemirror/state";
+import {
+  Decoration,
+  type DecorationSet,
+  EditorView,
+  WidgetType,
+} from "@codemirror/view";
 
 /**
  * List Management Extension
@@ -30,7 +40,7 @@ export const listHandlingField = StateField.define<DecorationSet>({
     }
     return decorations.map(tr.changes);
   },
-  provide: f => EditorView.decorations.from(f)
+  provide: (f) => EditorView.decorations.from(f),
 });
 
 function buildDecorations(state: EditorState): DecorationSet {
@@ -42,20 +52,21 @@ function buildDecorations(state: EditorState): DecorationSet {
       if (node.name === "ListMark") {
         // Range check: reveal if cursor is at node.from, node.to, or start of line
         // User story says: only when your cursor is at the bullet point, you should see the `-`
-        const isCursorAtMarker = selection.head >= node.from && selection.head <= node.to;
-        
+        const isCursorAtMarker =
+          selection.head >= node.from && selection.head <= node.to;
+
         if (!isCursorAtMarker) {
           // Check if it's an unordered list marker
           const text = state.doc.sliceString(node.from, node.to);
           if (text === "-" || text === "*" || text === "+") {
             decorations.push(bulletWidget.range(node.from, node.to));
           }
-          // For numbers (e.g. 1.) we could do something similar, 
+          // For numbers (e.g. 1.) we could do something similar,
           // but usually just keeping them as is but formatted is fine.
           // The user specifically mentioned the `-` sign.
         }
       }
-    }
+    },
   });
 
   decorations.sort((a, b) => a.from - b.from);

@@ -1,5 +1,10 @@
 import { syntaxTree } from "@codemirror/language";
-import { RangeSetBuilder, StateField, type EditorState, type Range } from "@codemirror/state";
+import {
+  type EditorState,
+  type Range,
+  RangeSetBuilder,
+  StateField,
+} from "@codemirror/state";
 import { Decoration, type DecorationSet, EditorView } from "@codemirror/view";
 
 /**
@@ -21,13 +26,13 @@ export const inlineStylesField = StateField.define<DecorationSet>({
     }
     return decorations.map(tr.changes);
   },
-  provide: f => EditorView.decorations.from(f)
+  provide: (f) => EditorView.decorations.from(f),
 });
 
 function buildDecorations(state: EditorState): DecorationSet {
   const decorations: Range<Decoration>[] = [];
   const selection = state.selection.main;
-  
+
   // Use a stack to track nested style ranges
   const activeRanges: { from: number; to: number }[] = [];
 
@@ -38,7 +43,7 @@ function buildDecorations(state: EditorState): DecorationSet {
         decorations.push(italicDecoration.range(node.from, node.to));
         activeRanges.push({ from: node.from, to: node.to });
       }
-      
+
       // Bold (StrongEmphasis)
       if (node.name === "StrongEmphasis") {
         decorations.push(boldDecoration.range(node.from, node.to));
@@ -48,14 +53,19 @@ function buildDecorations(state: EditorState): DecorationSet {
       // Hide marks if selection does not overlap the parent style node
       if (node.name === "EmphasisMark" || node.name === "StrongEmphasisMark") {
         // Prefer the explicit parent range from the syntax tree, fall back to the active stack
+        // biome-ignore lint/suspicious/noExplicitAny: accessing parent node
         const parentNode = (node as any).node?.parent;
         const parentRange = parentNode
           ? { from: parentNode.from, to: parentNode.to }
-          : activeRanges[activeRanges.length - 1] || { from: node.from, to: node.to };
-        
+          : activeRanges[activeRanges.length - 1] || {
+              from: node.from,
+              to: node.to,
+            };
+
         // Reveal if selection overlaps the style range (including boundaries)
-        const hasOverlap = selection.from <= parentRange.to && selection.to >= parentRange.from;
-        
+        const hasOverlap =
+          selection.from <= parentRange.to && selection.to >= parentRange.from;
+
         if (!hasOverlap) {
           decorations.push(hideDecoration.range(node.from, node.to));
         }
@@ -65,11 +75,16 @@ function buildDecorations(state: EditorState): DecorationSet {
       if (node.name === "Emphasis" || node.name === "StrongEmphasis") {
         activeRanges.pop();
       }
-    }
+    },
   });
 
   // Sort by 'from' position, then by 'startSide'
-  decorations.sort((a, b) => a.from - b.from || (a.value as any).startSide - (b.value as any).startSide);
+  decorations.sort(
+    (a, b) =>
+      a.from - b.from ||
+      // biome-ignore lint/suspicious/noExplicitAny: accessing startSide
+      (a.value as any).startSide - (b.value as any).startSide,
+  );
 
   const builder = new RangeSetBuilder<Decoration>();
   for (const deco of decorations) {

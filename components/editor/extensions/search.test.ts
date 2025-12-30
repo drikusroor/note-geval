@@ -1,4 +1,4 @@
-import { expect, test, describe } from "bun:test";
+import { describe, expect, test } from "bun:test";
 import { EditorState } from "@codemirror/state";
 import { searchState, setSearchQuery } from "./search";
 
@@ -9,22 +9,22 @@ describe("search extension", () => {
     const doc = "Hello world, hello again";
     let state = EditorState.create({
       doc,
-      extensions
+      extensions,
     });
 
     // Apply search query effect
     state = state.update({
-      effects: setSearchQuery.of("hello")
+      effects: setSearchQuery.of("hello"),
     }).state;
 
     const { query, decorations } = state.field(searchState);
     expect(query).toBe("hello");
-    
+
     let count = 0;
     decorations.between(0, doc.length, () => {
       count++;
     });
-    
+
     expect(count).toBe(2); // "Hello" and "hello" (case-insensitive)
   });
 
@@ -32,7 +32,7 @@ describe("search extension", () => {
     const doc = "Hello world";
     let state = EditorState.create({
       doc,
-      extensions
+      extensions,
     });
 
     state = state.update({ effects: setSearchQuery.of("hello") }).state;
@@ -40,9 +40,11 @@ describe("search extension", () => {
 
     state = state.update({ effects: setSearchQuery.of("") }).state;
     expect(state.field(searchState).query).toBe("");
-    
+
     let count = 0;
-    state.field(searchState).decorations.between(0, doc.length, () => { count++; });
+    state.field(searchState).decorations.between(0, doc.length, () => {
+      count++;
+    });
     expect(count).toBe(0);
   });
 });

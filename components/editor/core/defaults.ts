@@ -1,27 +1,27 @@
-import type { Extension } from "@codemirror/state";
-import { markdown } from "@codemirror/lang-markdown";
-import { 
-  keymap, 
-  highlightActiveLine, 
-  drawSelection, 
-  dropCursor, 
-  rectangularSelection, 
-  highlightSpecialChars,
-  EditorView
-} from "@codemirror/view";
-import { 
-  standardKeymap, 
-  history, 
-  historyKeymap, 
-  indentWithTab 
+import {
+  history,
+  historyKeymap,
+  indentWithTab,
+  standardKeymap,
 } from "@codemirror/commands";
-import { 
-  bracketMatching, 
-  foldKeymap, 
-  indentOnInput, 
-  syntaxHighlighting, 
-  defaultHighlightStyle 
+import { markdown } from "@codemirror/lang-markdown";
+import {
+  bracketMatching,
+  defaultHighlightStyle,
+  foldKeymap,
+  indentOnInput,
+  syntaxHighlighting,
 } from "@codemirror/language";
+import type { Extension } from "@codemirror/state";
+import {
+  drawSelection,
+  dropCursor,
+  EditorView,
+  highlightActiveLine,
+  highlightSpecialChars,
+  keymap,
+  rectangularSelection,
+} from "@codemirror/view";
 import { editorTheme } from "./theme";
 
 /**
@@ -50,7 +50,4 @@ export const basicSetup: Extension[] = [
 /**
  * Standard Markdown extensions.
  */
-export const markdownExtensions: Extension[] = [
-  markdown(),
-  basicSetup,
-];
+export const markdownExtensions: Extension[] = [markdown(), basicSetup];

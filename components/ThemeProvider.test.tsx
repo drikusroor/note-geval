@@ -7,7 +7,7 @@ describe("ThemeProvider", () => {
     const { getByTestId, getByText } = render(
       <ThemeProvider attribute="class">
         <div data-testid="child">Test Child</div>
-      </ThemeProvider>
+      </ThemeProvider>,
     );
     expect(getByTestId("child")).toBeTruthy();
     expect(getByText("Test Child")).toBeTruthy();

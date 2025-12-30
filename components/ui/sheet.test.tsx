@@ -1,18 +1,19 @@
 import { describe, expect, test } from "bun:test";
-import { render, fireEvent } from "@testing-library/react";
-import { Sheet, SheetTrigger, SheetContent, SheetTitle } from "./sheet";
+import { fireEvent, render } from "@testing-library/react";
+import { Sheet, SheetContent, SheetTitle, SheetTrigger } from "./sheet";
 
 describe("Sheet", () => {
   test("opens and closes correctly", async () => {
-    const { queryByTestId, getByTestId, findByTestId, getByText, getByRole, queryByRole } = render(
-      <Sheet>
-        <SheetTrigger data-testid="trigger">Open</SheetTrigger>
-        <SheetContent>
-          <SheetTitle>Title</SheetTitle>
-          <div data-testid="content">Content</div>
-        </SheetContent>
-      </Sheet>
-    );
+    const { queryByTestId, getByTestId, findByTestId, getByText, getByRole } =
+      render(
+        <Sheet>
+          <SheetTrigger data-testid="trigger">Open</SheetTrigger>
+          <SheetContent>
+            <SheetTitle>Title</SheetTitle>
+            <div data-testid="content">Content</div>
+          </SheetContent>
+        </Sheet>,
+      );
 
     expect(queryByTestId("content")).toBeNull();
 

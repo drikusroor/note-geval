@@ -1,6 +1,6 @@
-import { useRef, useEffect } from "react";
 import type { Extension } from "@codemirror/state";
 import type { EditorView } from "@codemirror/view";
+import { useEffect, useRef } from "react";
 import { useCodeMirror } from "./useCodeMirror";
 
 interface CoreEditorProps {
@@ -19,7 +19,7 @@ export const CoreEditor = ({
   className,
 }: CoreEditorProps) => {
   const ref = useRef<HTMLDivElement>(null);
-  
+
   const { view } = useCodeMirror({
     initialDoc: initialContent,
     extensions,
@@ -34,9 +34,9 @@ export const CoreEditor = ({
   }, [view, onViewCreated]);
 
   return (
-    <div 
-      ref={ref} 
-      className={`h-full w-full overflow-hidden ${className || ""}`} 
+    <div
+      ref={ref}
+      className={`h-full w-full overflow-hidden ${className || ""}`}
     />
   );
 };

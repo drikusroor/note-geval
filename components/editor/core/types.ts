@@ -30,7 +30,7 @@ export interface EditorConfig {
    * Initial content of the editor.
    */
   initialContent?: string;
-  
+
   /**
    * Callback when content changes
    */

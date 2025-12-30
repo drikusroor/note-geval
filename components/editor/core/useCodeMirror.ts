@@ -1,6 +1,6 @@
-import { useEffect, useState, useRef } from "react";
 import { EditorState, type Extension } from "@codemirror/state";
 import { EditorView } from "@codemirror/view";
+import { useEffect, useRef, useState } from "react";
 
 interface UseCodeMirrorProps {
   initialDoc: string;

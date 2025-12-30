@@ -8,6 +8,7 @@ export interface TreeNode {
   size: number;
 }
 
+// biome-ignore lint/suspicious/noExplicitAny: dynamic file objects
 export function buildTree(files: any[]): TreeNode[] {
   const root: TreeNode[] = [];
   const map: { [key: string]: TreeNode } = {};

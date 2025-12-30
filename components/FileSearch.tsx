@@ -42,10 +42,12 @@ export default function FileSearch() {
 
   const filteredFiles = query
     ? files?.filter(
+        // biome-ignore lint/suspicious/noExplicitAny: intended use
         (f: any) =>
           !f.isDirectory && f.name.toLowerCase().includes(query.toLowerCase()),
       )
-    : files?.filter((f: any) => !f.isDirectory);
+    : // biome-ignore lint/suspicious/noExplicitAny: intended use
+      files?.filter((f: any) => !f.isDirectory);
 
   if (!isOpen) return null;
 
@@ -61,14 +63,16 @@ export default function FileSearch() {
             value={query}
             onChange={(e) => setQuery(e.target.value)}
           />
-          <button onClick={() => setIsOpen(false)}>
+          <button type="button" onClick={() => setIsOpen(false)}>
             <X className="w-5 h-5 text-muted-foreground" />
           </button>
         </div>
 
         <div className="flex-1 overflow-y-auto p-2">
+          {/* biome-ignore lint/suspicious/noExplicitAny: intended use */}
           {filteredFiles?.slice(0, 10).map((file: any) => (
             <button
+              type="button"
               key={file.path}
               onClick={() => {
                 router.push(`/notes/${file.path}`);

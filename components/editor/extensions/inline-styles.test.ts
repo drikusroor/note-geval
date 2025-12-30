@@ -1,17 +1,23 @@
-import { expect, test, describe } from "bun:test";
-import { EditorState } from "@codemirror/state";
+import { describe, expect, test } from "bun:test";
 import { markdown } from "@codemirror/lang-markdown";
+import { EditorState } from "@codemirror/state";
 import { inlineStylesField } from "./inline-styles";
 
 describe("inline-styles extension", () => {
   const extensions = [markdown(), inlineStylesField];
+  // biome-ignore lint/suspicious/noExplicitAny: intended use
   const isHiddenMark = (value: any) => {
+    // biome-ignore lint/suspicious/noExplicitAny: intended use
     const spec = (value as any).spec || {};
     return spec.replace === true || spec.class === undefined;
   };
 
   test("hides marks when cursor is outside", () => {
-    const state = EditorState.create({ doc: "  *italic*", extensions, selection: { anchor: 0 } });
+    const state = EditorState.create({
+      doc: "  *italic*",
+      extensions,
+      selection: { anchor: 0 },
+    });
     let hasReplace = false;
     state.field(inlineStylesField).between(2, 3, (_from, _to, value) => {
       if (isHiddenMark(value)) hasReplace = true;
@@ -24,7 +30,7 @@ describe("inline-styles extension", () => {
     const state = EditorState.create({
       doc,
       extensions,
-      selection: { anchor: 3, head: 3 }
+      selection: { anchor: 3, head: 3 },
     });
 
     const decorations = state.field(inlineStylesField);
@@ -43,20 +49,20 @@ describe("inline-styles extension", () => {
     // Mankementensoep: 3-18
     // **: 18-20
     // _ : 20-21
-    
+
     const state = EditorState.create({
       doc,
       extensions,
-      selection: { anchor: 0, head: 21 } // Select all
+      selection: { anchor: 0, head: 21 }, // Select all
     });
 
     const decorations = state.field(inlineStylesField);
-    
+
     let firstMarkHidden = false;
     decorations.between(0, 1, (_from, _to, value) => {
       if (isHiddenMark(value)) firstMarkHidden = true;
     });
-    
+
     let lastMarkHidden = false;
     decorations.between(20, 21, (_from, _to, value) => {
       if (isHiddenMark(value)) lastMarkHidden = true;
@@ -77,13 +83,13 @@ describe("inline-styles extension", () => {
     const outsideState = EditorState.create({
       doc,
       extensions,
-      selection: { anchor: 0, head: 0 } // Cursor before the styled word
+      selection: { anchor: 0, head: 0 }, // Cursor before the styled word
     });
 
     const insideState = EditorState.create({
       doc,
       extensions,
-      selection: { anchor: 8, head: 8 } // Cursor inside the styled word
+      selection: { anchor: 8, head: 8 }, // Cursor inside the styled word
     });
 
     const countHiddenMarks = (state: EditorState) => {
@@ -101,5 +107,4 @@ describe("inline-styles extension", () => {
     expect(hiddenOutside).toBeGreaterThan(0);
     expect(hiddenInside).toBe(0);
   });
-  
 });

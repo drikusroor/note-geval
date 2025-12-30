@@ -1,6 +1,6 @@
-import { expect, test, describe } from "bun:test";
-import { EditorState } from "@codemirror/state";
+import { describe, expect, test } from "bun:test";
 import { markdown } from "@codemirror/lang-markdown";
+import { EditorState } from "@codemirror/state";
 import { livePreviewField } from "./live-preview";
 
 describe("live-preview extension", () => {
@@ -11,7 +11,7 @@ describe("live-preview extension", () => {
     const state = EditorState.create({
       doc,
       extensions,
-      selection: { anchor: 9 } // On Line 2
+      selection: { anchor: 9 }, // On Line 2
     });
 
     const decorations = state.field(livePreviewField);
@@ -19,7 +19,7 @@ describe("live-preview extension", () => {
     decorations.between(0, 1, (from, to) => {
       if (from === 0 && to === 1) found = true;
     });
-    
+
     expect(found).toBe(true);
   });
 
@@ -28,7 +28,7 @@ describe("live-preview extension", () => {
     const state = EditorState.create({
       doc,
       extensions,
-      selection: { anchor: 2 } // On Line 1
+      selection: { anchor: 2 }, // On Line 1
     });
 
     const decorations = state.field(livePreviewField);
@@ -36,7 +36,7 @@ describe("live-preview extension", () => {
     decorations.between(0, 1, (from, to) => {
       if (from === 0 && to === 1) found = true;
     });
-    
+
     expect(found).toBe(false);
   });
 });

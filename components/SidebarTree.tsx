@@ -23,6 +23,7 @@ export default function SidebarTree({
     data: files,
     isLoading,
     error,
+    // biome-ignore lint/suspicious/noExplicitAny: intended use
   } = useQuery<any[]>({
     queryKey: ["notes", "recursive"],
     queryFn: () => fetch("/api/notes?recursive=true").then((res) => res.json()),

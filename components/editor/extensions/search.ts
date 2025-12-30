@@ -1,4 +1,9 @@
-import { RangeSetBuilder, StateField, StateEffect, type Range } from "@codemirror/state";
+import {
+  type Range,
+  RangeSetBuilder,
+  StateEffect,
+  StateField,
+} from "@codemirror/state";
 import { Decoration, type DecorationSet, EditorView } from "@codemirror/view";
 
 /**
@@ -14,7 +19,10 @@ const searchHighlight = Decoration.mark({ class: "cm-search-highlight" });
 /**
  * Search State that stores the query and its decorations
  */
-export const searchState = StateField.define<{ query: string; decorations: DecorationSet }>({
+export const searchState = StateField.define<{
+  query: string;
+  decorations: DecorationSet;
+}>({
   create() {
     return { query: "", decorations: Decoration.none };
   },
@@ -28,12 +36,13 @@ export const searchState = StateField.define<{ query: string; decorations: Decor
 
     if (query !== value.query || tr.docChanged) {
       if (!query) return { query: "", decorations: Decoration.none };
-      
+
       const decorations: Range<Decoration>[] = [];
       const docString = tr.state.doc.toString();
       let pos = 0;
-      
-      while ((pos = docString.toLowerCase().indexOf(query.toLowerCase(), pos)) !== -1) {
+      while (true) {
+        pos = docString.toLowerCase().indexOf(query.toLowerCase(), pos);
+        if (pos === -1) break;
         decorations.push(searchHighlight.range(pos, pos + query.length));
         pos += query.length;
       }
@@ -43,16 +52,16 @@ export const searchState = StateField.define<{ query: string; decorations: Decor
       for (const deco of decorations) {
         builder.add(deco.from, deco.to, deco.value);
       }
-      
+
       return { query, decorations: builder.finish() };
     }
 
-    return { 
-      query, 
-      decorations: value.decorations.map(tr.changes) 
+    return {
+      query,
+      decorations: value.decorations.map(tr.changes),
     };
   },
-  provide: f => EditorView.decorations.from(f, v => v.decorations)
+  provide: (f) => EditorView.decorations.from(f, (v) => v.decorations),
 });
 
 export const searchExtensions = () => [searchState];
