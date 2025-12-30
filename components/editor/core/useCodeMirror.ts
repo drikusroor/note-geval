@@ -24,6 +24,7 @@ export function useCodeMirror({
     stateRef.current.onChange = onChange;
   }, [onChange]);
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: intentional
   useEffect(() => {
     if (!parentRef.current || initializedRef.current) return;
 
@@ -55,9 +56,6 @@ export function useCodeMirror({
       setView(null);
       initializedRef.current = false;
     };
-    // initialDoc and extensions are only used for initial setup.
-    // Path changes are handled by the 'key' prop on the NoteEditor component.
-    // biome-ignore lint/correctness/useExhaustiveDependencies: intentional
   }, [parentRef]);
 
   return { view };

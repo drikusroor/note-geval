@@ -64,6 +64,10 @@ global.Text = window.Text as any;
 global.Element = window.Element as any;
 // biome-ignore lint/suspicious/noExplicitAny: polyfilling globals for happy-dom
 global.Event = window.Event as any;
+// biome-ignore lint/suspicious/noExplicitAny: polyfilling globals for happy-dom
+global.localStorage = window.localStorage as any;
+// biome-ignore lint/suspicious/noExplicitAny: polyfilling globals for happy-dom
+global.sessionStorage = window.sessionStorage as any;
 
 expect.extend(matchers);
 
