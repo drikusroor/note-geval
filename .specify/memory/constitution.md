@@ -15,7 +15,7 @@ Sync Impact Report:
 ## Core Principles
 
 ### I. Strict Typing & Linting (Code Quality)
-All code must pass Biome linting/formatting and TypeScript type checks (`bun run lint`, `bun run check-types`). No `any` types allowed unless explicitly justified and documented. Rationale: Maintain long-term maintainability and catch errors early.
+All code must pass Biome linting/formatting and TypeScript type checks (`bun run lint`, `bun run check-types`, or `bun run pre-test`). No `any` types allowed unless explicitly justified and documented. Run `bun lint:unsafe` to fix as many linting issues as possible automatically. Rationale: Maintain long-term maintainability and catch errors early.
 
 ### II. Comprehensive Testing (Testing Standards)
 Core business logic and complex UI components must have unit or integration tests using `bun test`. Tests should be written alongside features to ensure reliability. Rationale: Prevent regressions and document expected behavior.
@@ -31,7 +31,7 @@ The application MUST always remain in a buildable state. Every feature implement
 
 ## Technology Stack & Constraints
 
-- **Runtime**: Bun (Primary runtime for execution, testing, and bundling)
+- **Runtime**: Bun (Primary runtime for execution, testing, and bundling) - NO NPM/NODE/YARN!
 - **Framework**: Next.js 16+ (App Router)
 - **Styling**: Tailwind CSS, PostCSS, Lucide icons
 - **Tools**: Biome (Linting & Formatting), TypeScript (Strict mode)

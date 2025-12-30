@@ -3,6 +3,8 @@
 Auto-generated from all feature plans. Last updated: 2025-12-26
 
 ## Active Technologies
+
+- Bun (Runtime, bundler, test runner, package manager) NO NPM/NODE/YARN!
 - TypeScript 5.x / React 19 (via Next.js 16) (004-live-preview-editor)
 - N/A (Client-side component, persists via existing `api/notes` endpoints) (004-live-preview-editor)
 - TypeScript 5.x (via Bun) + Next.js 16+, TanStack Query (for async saves), TanStack Store (for session state), CodeMirror (existing editor) (005-auto-save-notes)
