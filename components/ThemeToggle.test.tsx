@@ -1,7 +1,6 @@
 import { describe, expect, test, mock, beforeEach } from "bun:test";
 import { render, fireEvent } from "@testing-library/react";
 import { ThemeToggle } from "./ThemeToggle";
-import React from "react";
 
 // Mock next-themes
 const setThemeMock = mock(() => {});

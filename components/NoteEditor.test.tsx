@@ -1,7 +1,6 @@
-import { describe, expect, test, mock, beforeEach } from "bun:test";
+import { describe, expect, test, mock, beforeEach, afterAll } from "bun:test";
 import { render, fireEvent, waitFor } from "@testing-library/react";
 import NoteEditor from "./NoteEditor";
-import React from "react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 // Mock Preview
@@ -20,6 +19,10 @@ const createQueryClient = () => new QueryClient({
       gcTime: 0,
     },
   },
+});
+
+afterAll(() => {
+  mock.restore();
 });
 
 describe("NoteEditor", () => {
@@ -77,11 +80,15 @@ describe("NoteEditor", () => {
     const saveButton = getByLabelText("Save note") as HTMLButtonElement;
     expect(saveButton.disabled).toBe(true);
 
-    fireEvent.change(textarea, { target: { value: "Updated content" } });
+    textarea.value = "Updated content";
+    fireEvent.input(textarea);
+    await waitFor(() => expect(textarea.value).toBe("Updated content"));
     
     await waitFor(() => expect(saveButton.disabled).toBe(false), { timeout: 2000 });
 
-    fireEvent.change(textarea, { target: { value: "Initial content" } });
+    textarea.value = "Initial content";
+    fireEvent.input(textarea);
+    await waitFor(() => expect(textarea.value).toBe("Initial content"));
     await waitFor(() => expect(saveButton.disabled).toBe(true), { timeout: 2000 });
   });
 });
