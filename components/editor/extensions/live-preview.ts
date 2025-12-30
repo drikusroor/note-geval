@@ -15,6 +15,25 @@ import { Decoration, type DecorationSet, EditorView } from "@codemirror/view";
 // Decoration to hide text
 const hideDecoration = Decoration.replace({});
 
+// Heading decorations
+const h1Decoration = Decoration.mark({ class: "cm-h1" });
+const h2Decoration = Decoration.mark({ class: "cm-h2" });
+const h3Decoration = Decoration.mark({ class: "cm-h3" });
+const h4Decoration = Decoration.mark({ class: "cm-h4" });
+const h5Decoration = Decoration.mark({ class: "cm-h5" });
+const h6Decoration = Decoration.mark({ class: "cm-h6" });
+
+const headingDecorations: Record<string, Decoration> = {
+  ATXHeading1: h1Decoration,
+  ATXHeading2: h2Decoration,
+  ATXHeading3: h3Decoration,
+  ATXHeading4: h4Decoration,
+  ATXHeading5: h5Decoration,
+  ATXHeading6: h6Decoration,
+  SetextHeading1: h1Decoration,
+  SetextHeading2: h2Decoration,
+};
+
 /**
  * State field to manage the decorations
  */
@@ -38,11 +57,24 @@ function buildDecorations(state: EditorState): DecorationSet {
 
   syntaxTree(state).iterate({
     enter: (node) => {
+      // Apply heading styles
+      if (headingDecorations[node.name]) {
+        decorations.push(headingDecorations[node.name].range(node.from, node.to));
+      }
+
       // Check for header marks (e.g., ###)
       if (node.name === "HeaderMark") {
         const line = state.doc.lineAt(node.from).number;
         if (line !== cursorLine) {
-          decorations.push(hideDecoration.range(node.from, node.to));
+          let end = node.to;
+          // Hide trailing spaces after the header mark
+          while (
+            end < state.doc.length &&
+            state.doc.sliceString(end, end + 1) === " "
+          ) {
+            end++;
+          }
+          decorations.push(hideDecoration.range(node.from, end));
         }
       }
 
@@ -50,7 +82,12 @@ function buildDecorations(state: EditorState): DecorationSet {
       if (node.name === "QuoteMark") {
         const line = state.doc.lineAt(node.from).number;
         if (line !== cursorLine) {
-          decorations.push(hideDecoration.range(node.from, node.to));
+          let end = node.to;
+          // Hide trailing space after the quote mark
+          if (state.doc.sliceString(end, end + 1) === " ") {
+            end++;
+          }
+          decorations.push(hideDecoration.range(node.from, end));
         }
       }
 
@@ -58,6 +95,8 @@ function buildDecorations(state: EditorState): DecorationSet {
       if (node.name === "ListMark") {
         const line = state.doc.lineAt(node.from).number;
         if (line !== cursorLine) {
+          // For lists, we might NOT want to hide the space to keep indentation
+          // but the user didn't ask for this, so I'll leave it as is or just hide the mark.
           decorations.push(hideDecoration.range(node.from, node.to));
         }
       }

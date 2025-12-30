@@ -295,6 +295,37 @@ pre code.hljs {
   font-weight: bold;
 }
 
+.cm-h1 {
+  font-size: 1.875rem;
+  line-height: 2.25rem;
+  font-weight: 700;
+}
+.cm-h2 {
+  font-size: 1.5rem;
+  line-height: 2rem;
+  font-weight: 700;
+}
+.cm-h3 {
+  font-size: 1.25rem;
+  line-height: 1.75rem;
+  font-weight: 700;
+}
+.cm-h4 {
+  font-size: 1.125rem;
+  line-height: 1.75rem;
+  font-weight: 700;
+}
+.cm-h5 {
+  font-size: 1rem;
+  line-height: 1.5rem;
+  font-weight: 700;
+}
+.cm-h6 {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  font-weight: 700;
+}
+
 .cm-search-highlight {
   background-color: rgba(255, 255, 0, 0.3);
 }

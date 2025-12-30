@@ -16,8 +16,8 @@ describe("live-preview extension", () => {
 
     const decorations = state.field(livePreviewField);
     let found = false;
-    decorations.between(0, 1, (from, to) => {
-      if (from === 0 && to === 1) found = true;
+    decorations.between(0, 2, (from, to) => {
+      if (from === 0 && to === 2) found = true;
     });
 
     expect(found).toBe(true);
