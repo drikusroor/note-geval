@@ -3,6 +3,7 @@
 import { RefreshCcw, Save } from "lucide-react";
 import { useNoteStore } from "@/lib/store/useNoteStore";
 import { useSettings } from "@/lib/store/useSettings";
+import { Breadcrumb } from "./Breadcrumb";
 import { SavingStatus } from "./SavingStatus";
 
 export interface EditorHeaderProps {
@@ -28,11 +29,9 @@ export function EditorHeader({ path, onSave, isSaving }: EditorHeaderProps) {
   };
 
   return (
-    <div className="flex items-center justify-between p-3 md:p-2 border-b bg-muted/50 gap-2">
-      <div className="flex items-center gap-2">
-        <span className="text-xs font-mono text-muted-foreground px-2">
-          Live Preview Editor
-        </span>
+    <div className="flex items-center justify-between p-3 md:p-2 border-b bg-muted/50 gap-2 overflow-hidden">
+      <div className="flex items-center gap-2 min-w-0">
+        <Breadcrumb path={path} />
         {isDirty && (
           <div className="flex items-center gap-1.5 ml-2">
             <div className="w-2 h-2 rounded-full bg-orange-500 animate-pulse" />
