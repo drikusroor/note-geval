@@ -29,9 +29,9 @@ tests/
 : Follow standard conventions
 
 ## Recent Changes
+- 006-file-path-display: Added [if applicable, e.g., PostgreSQL, CoreData, files or N/A]
 - 005-auto-save-notes: Added TypeScript 5.x / Next.js 16.x (App Router) + @tanstack/react-store (Session state), @tanstack/react-query (Asynchronous saving), lucide-react (Icons)
 - 005-auto-save-notes: Added TypeScript 5.x (via Bun) + Next.js 16+, TanStack Query (for async saves), TanStack Store (for session state), CodeMirror (existing editor)
-- 004-live-preview-editor: Added TypeScript 5.x / React 19 (via Next.js 16)
 
 
 <!-- MANUAL ADDITIONS START -->

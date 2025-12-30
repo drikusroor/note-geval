@@ -4,7 +4,7 @@ import * as Collapsible from "@radix-ui/react-collapsible";
 import { ChevronDown, ChevronRight, FileText, Folder } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
+import { useExplorerStore } from "@/lib/store/useExplorerStore";
 import type { TreeNode } from "@/lib/utils/tree";
 
 interface SidebarTreeItemProps {
@@ -17,17 +17,11 @@ export default function SidebarTreeItem({
   level = 0,
 }: SidebarTreeItemProps) {
   const pathname = usePathname();
-  const storageKey = `expanded-${node.path}`;
-  const [isOpen, setIsOpen] = useState(() => {
-    if (typeof window !== "undefined") {
-      return localStorage.getItem(storageKey) === "true";
-    }
-    return false;
-  });
+  const { isExpanded, setExpanded } = useExplorerStore();
+  const isOpen = isExpanded(node.path);
 
   const toggleOpen = (open: boolean) => {
-    setIsOpen(open);
-    localStorage.setItem(storageKey, String(open));
+    setExpanded(node.path, open);
   };
 
   const isActive = pathname === `/notes/${node.path}`;
