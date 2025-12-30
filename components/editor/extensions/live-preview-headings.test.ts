@@ -54,8 +54,9 @@ describe("live-preview headings", () => {
     let headingDecorated = false;
     decorations.between(0, 8, (from, to, value) => {
       // Value is the decoration. We check if it has the cm-h1 class.
-      // @ts-ignore - spec is internal to Decoration
-      if (from === 0 && to === 8 && value.spec.class === "cm-h1") {
+      // spec is internal to Decoration but accessible at runtime
+      const spec = (value as unknown as { spec?: { class?: string } }).spec;
+      if (from === 0 && to === 8 && spec?.class === "cm-h1") {
         headingDecorated = true;
       }
     });

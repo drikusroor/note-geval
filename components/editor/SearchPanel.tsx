@@ -15,9 +15,12 @@ export function SearchPanel({ view, onClose }: SearchPanelProps) {
   const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
-    if (inputRef.current) {
-      inputRef.current.focus();
-    }
+    const timer = setTimeout(() => {
+      if (inputRef.current) {
+        inputRef.current.focus();
+      }
+    }, 50);
+    return () => clearTimeout(timer);
   }, []);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -30,9 +33,18 @@ export function SearchPanel({ view, onClose }: SearchPanelProps) {
     }
   };
 
+  const handleClose = () => {
+    if (view) {
+      view.dispatch({
+        effects: setSearchQuery.of(""),
+      });
+    }
+    onClose();
+  };
+
   const handleKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === "Escape") {
-      onClose();
+      handleClose();
     }
   };
 
@@ -41,14 +53,16 @@ export function SearchPanel({ view, onClose }: SearchPanelProps) {
       <div className="flex items-center gap-2 p-2 bg-muted/50">
         <Search className="w-4 h-4 text-muted-foreground" />
         <input
+          ref={inputRef}
           placeholder="Search..."
           value={query}
           onChange={handleChange}
           onKeyDown={handleKeyDown}
+          className="flex-1 bg-transparent border-none focus:outline-none text-sm"
         />
         <button
           type="button"
-          onClick={onClose}
+          onClick={handleClose}
           className="p-1 hover:bg-accent rounded"
         >
           <X className="w-4 h-4 text-muted-foreground" />

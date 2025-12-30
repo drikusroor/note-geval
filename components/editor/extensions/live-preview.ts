@@ -59,7 +59,9 @@ function buildDecorations(state: EditorState): DecorationSet {
     enter: (node) => {
       // Apply heading styles
       if (headingDecorations[node.name]) {
-        decorations.push(headingDecorations[node.name].range(node.from, node.to));
+        decorations.push(
+          headingDecorations[node.name].range(node.from, node.to),
+        );
       }
 
       // Check for header marks (e.g., ###)
