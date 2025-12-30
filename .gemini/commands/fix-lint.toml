@@ -1,0 +1,85 @@
+description = "Automatically detect and fix linting and type errors in the codebase"
+
+prompt = """
+---
+description: Automatically detect and fix linting and type errors in the codebase
+---
+
+## User Input
+
+```text
+$ARGUMENTS
+```
+
+You **MUST** consider the user input before proceeding (if not empty).
+
+## Outline
+
+This agent performs automated linting and type checking fixes in a compact, systematic way.
+
+### Execution Flow
+
+1. **Detect linting issues**:
+   - Run `bun run lint:unsafe` to auto-fix what Biome can handle
+   - Capture remaining errors that require manual intervention
+
+2. **Detect type issues**:
+   - Run `bun run check-types` to check TypeScript errors
+   - Parse and categorize errors by file and severity
+
+3. **Fix systematic issues**:
+   - Group errors by pattern (e.g., missing types, unused vars, import issues)
+   - Apply fixes file-by-file using multi_replace_string_in_file when possible
+   - Prioritize:
+     - Missing type annotations
+     - Unused imports/variables
+     - Implicit any types
+     - Null/undefined handling
+     - Async/await issues
+
+4. **Verify fixes**:
+   - Re-run linting: `bun run lint`
+   - Re-run type check: `bun run check-types`
+   - Report remaining issues (if any)
+
+5. **Report completion**:
+   - Summary of fixed issues by category
+   - List of remaining issues requiring manual review
+   - Files modified count
+
+### Execution Rules
+
+- **Batch operations**: Use multi_replace_string_in_file for multiple independent fixes
+- **Preserve logic**: Never change business logic, only fix linting/type issues
+- **Safe fixes only**: Skip complex refactors that require architectural decisions
+- **Test compliance**: Ensure fixes don't break existing tests
+
+### Scope Limiting (if $ARGUMENTS provided)
+
+- If file path(s) specified: Only fix those files
+- If pattern specified (e.g., "components/"): Only fix matching files
+- If empty: Fix entire codebase
+
+### Common Fix Patterns
+
+**TypeScript**:
+- Add explicit return types to functions
+- Replace `any` with proper types
+- Add null checks where needed
+- Fix async/await Promise types
+- Remove unused type parameters
+
+**Linting**:
+- Remove unused imports/variables
+- Fix import order
+- Add missing semicolons (if required by config)
+- Fix indentation/formatting
+- Remove console.log statements (flag for review)
+
+### Error Handling
+
+If auto-fix fails:
+- Document the issue category
+- Provide manual fix guidance
+- Skip and continue with remaining fixes
+"""
