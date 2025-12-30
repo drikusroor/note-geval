@@ -1,8 +1,8 @@
 "use client";
 
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { Edit3, Eye, Save } from "lucide-react";
-import { useEffect, useState } from "react";
+import { Columns2, Edit3, Eye, Save } from "lucide-react";
+import { useEffect, useState, useRef } from "react";
 import Editor from "./Editor";
 import InternalSearch from "./InternalSearch";
 import Preview from "./Preview";
@@ -14,6 +14,10 @@ interface NoteEditorProps {
 export default function NoteEditor({ path }: NoteEditorProps) {
   const queryClient = useQueryClient();
   const [content, setContent] = useState("");
+  const [initialContent, setInitialContent] = useState("");
+  const [hasLoadedContent, setHasLoadedContent] = useState(false);
+  const [isDirty, setIsDirty] = useState(false);
+  const editorRef = useRef<HTMLTextAreaElement | null>(null);
   // Default to edit view on mobile, split on desktop
   const [view, setView] = useState<"edit" | "preview" | "split">("edit");
 
@@ -36,10 +40,37 @@ export default function NoteEditor({ path }: NoteEditorProps) {
   });
 
   useEffect(() => {
-    if (note?.content !== undefined) {
+    if (note?.content !== undefined && !hasLoadedContent) {
       setContent(note.content);
+      setInitialContent(note.content);
+      setHasLoadedContent(true);
+      setIsDirty(false);
+    } else if (note?.content !== undefined && hasLoadedContent && !isDirty) {
+      // Only sync server content when the user has no unsaved edits
+      setContent(note.content);
+      setInitialContent(note.content);
+      setIsDirty(false);
     }
-  }, [note]);
+  }, [note, hasLoadedContent, isDirty]);
+
+  const handleContentChange = (value: string) => {
+    setContent(value);
+    setIsDirty(value !== initialContent);
+  };
+
+  useEffect(() => {
+    const el = editorRef.current;
+    if (!el) return;
+
+    const handleInput = (event: Event) => {
+      const value = (event.target as HTMLTextAreaElement).value;
+      setContent(value);
+      setIsDirty(value !== initialContent);
+    };
+
+    el.addEventListener("input", handleInput);
+    return () => el.removeEventListener("input", handleInput);
+  }, [initialContent]);
 
   // Set initial view on mount
   useEffect(() => {
@@ -94,16 +125,13 @@ export default function NoteEditor({ path }: NoteEditorProps) {
             title="Split View"
             aria-label="Split view mode"
           >
-            <div className="flex gap-0.5">
-              <div className="w-1.5 h-3 border-r" />
-              <div className="w-1.5 h-3" />
-            </div>
+            <Columns2 className="w-6 h-6 md:w-4 md:h-4" />
           </button>
         </div>
         <button
           type="button"
           onClick={() => mutation.mutate(content)}
-          disabled={mutation.isPending || content === note?.content}
+          disabled={mutation.isPending || !hasLoadedContent || !isDirty}
           className="flex items-center gap-2 px-4 py-2 md:px-3 md:py-1.5 bg-primary text-primary-foreground rounded-md text-sm font-medium hover:bg-primary/90 disabled:opacity-50 transition-colors min-h-[44px] md:min-h-0"
           aria-label="Save note"
         >
@@ -119,7 +147,7 @@ export default function NoteEditor({ path }: NoteEditorProps) {
           <div
             className={`flex-1 overflow-hidden ${view === "split" ? "border-r" : ""}`}
           >
-            <Editor value={content} onChange={setContent} />
+            <Editor value={content} onChange={handleContentChange} inputRef={editorRef} />
           </div>
         )}
         {(view === "preview" || view === "split") && (

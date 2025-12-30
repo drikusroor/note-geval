@@ -271,3 +271,10 @@ pre code.hljs {
   color: #ffdcd7;
   background-color: #67060c;
 }
+
+/* CodeMirror Live Preview Styles */
+.cm-italic { font-style: italic; }
+.cm-bold { font-weight: bold; }
+
+.cm-search-highlight { background-color: rgba(255, 255, 0, 0.3); }
+.cm-search-highlight-active { background-color: rgba(255, 165, 0, 0.5); }

@@ -1,7 +1,6 @@
 import { describe, expect, test } from "bun:test";
 import { render, fireEvent } from "@testing-library/react";
 import { Sheet, SheetTrigger, SheetContent, SheetTitle } from "./sheet";
-import React from "react";
 
 describe("Sheet", () => {
   test("opens and closes correctly", async () => {

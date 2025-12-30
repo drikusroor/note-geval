@@ -1,4 +1,4 @@
-import NoteEditor from "@/components/NoteEditor";
+import { NewNoteEditor as NoteEditor } from "@/components/editor/NoteEditor";
 
 export default async function NotePage({
   params,
@@ -8,5 +8,5 @@ export default async function NotePage({
   const { path } = await params;
   const relativePath = path.join("/");
 
-  return <NoteEditor path={relativePath} />;
+  return <NoteEditor key={relativePath} path={relativePath} />;
 }

@@ -16,7 +16,7 @@ import { useEffect, useState } from "react";
 
 export default function MobileNav() {
 
-  const pathname = usePathname();
+  const _pathname = usePathname();
 
   const [open, setOpen] = useState(false);
 
@@ -28,13 +28,13 @@ export default function MobileNav() {
 
     setOpen(false);
 
-  }, [pathname]);
+  }, []);
 
 
 
   return (
 
-    <div className="md:hidden">
+    <div className="md:hidden" data-testid="mobile-nav">
 
       <Sheet open={open} onOpenChange={setOpen}>
 

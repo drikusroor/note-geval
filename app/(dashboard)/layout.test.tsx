@@ -1,7 +1,6 @@
-import { describe, expect, test, mock } from "bun:test";
+import { describe, expect, test, mock, afterAll } from "bun:test";
 import { render } from "@testing-library/react";
 import DashboardLayout from "./layout";
-import React from "react";
 
 // Mock child components
 mock.module("@/components/FileExplorer", () => ({
@@ -10,12 +9,13 @@ mock.module("@/components/FileExplorer", () => ({
 mock.module("@/components/FileSearch", () => ({
   default: () => <div data-testid="file-search">File Search</div>,
 }));
-mock.module("@/components/MobileNav", () => ({
-  default: () => <div data-testid="mobile-nav">Mobile Nav</div>,
-}));
 mock.module("@/components/SearchDialog", () => ({
   default: () => <div data-testid="search-dialog">Search Dialog</div>,
 }));
+
+afterAll(() => {
+  mock.restore();
+});
 
 describe("DashboardLayout", () => {
   test("renders both sidebars and main content", () => {

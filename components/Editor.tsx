@@ -3,9 +3,10 @@
 interface EditorProps {
   value: string;
   onChange: (value: string) => void;
+  inputRef?: React.Ref<HTMLTextAreaElement>;
 }
 
-export default function Editor({ value, onChange }: EditorProps) {
+export default function Editor({ value, onChange, inputRef }: EditorProps) {
   return (
     <div className="flex flex-col h-full">
       <textarea
@@ -14,6 +15,7 @@ export default function Editor({ value, onChange }: EditorProps) {
         onChange={(e) => onChange(e.target.value)}
         placeholder="Start writing..."
         spellCheck={false}
+        ref={inputRef}
       />
     </div>
   );
